@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{ page.title }} | {{ site.title }}</title>
+    <link rel="stylesheet" href="{{ '/assets/css/style.css' | relative_url }}" />
+    <link rel="icon" type="image/svg+xml" href="{{ '/assets/img/favicon.svg' | relative_url }}" />
+    <link rel="alternate" type="application/atom+xml" title="{{ site.title }} Feed" href="{{ '/feed.xml' | relative_url }}" />
+    {%- if site.plugins contains "jekyll-seo-tag" -%}{% seo %}{%- endif -%}
+  </head>
+  <body>
+    <div class="page">
+      <header class="site-header">
+        <div class="page-header-inner">
+          <div class="brand-left">
+            <a href="{{ '/' | relative_url }}" class="site-title">
+              <span class="site-title-first">{{ site.title | split: ' ' | first }}</span>
+              <span class="site-title-last">{{ site.title | split: ' ' | last }}</span>
+            </a>
+
+            <div class="brand-icons">
+              <a href="https://x.com/{{ site.twitter_username | default: 'your-handle' }}" class="icon-link" aria-label="X / Twitter">X</a>
+              <a href="https://www.linkedin.com/in/{{ site.linkedin_slug | default: 'your-linkedin' }}" class="icon-link" aria-label="LinkedIn">in</a>
+              <a href="https://github.com/{{ site.github_username | default: 'your-github' }}" class="icon-link" aria-label="GitHub"><span>{ }</span></a>
+            </div>
+          </div>
+
+          <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
+            🌙
+          </button>
+        </div>
+
+        <nav class="site-nav">
+          <a href="{{ '/blog/' | relative_url }}" class="nav-link nav-link--active">Blog</a>
+          <a href="{{ '/projects/' | relative_url }}" class="nav-link">Projects</a>
+          <a href="{{ '/about/' | relative_url }}" class="nav-link">About</a>
+        </nav>
+      </header>
+      <main class="content">
+        {{ content }}
+      </main>
+    </div>
+    <footer class="site-footer">
+      <div class="footer-links">
+        <a href="{{ '/feed.xml' | relative_url }}">RSS</a>
+        <a href="mailto:{{ site.author.email }}">Email</a>
+        <a href="https://github.com/{{ site.github_username | default: 'your-github' }}">GitHub</a>
+        <a href="https://www.linkedin.com/in/{{ site.linkedin_slug | default: 'your-linkedin' }}">LinkedIn</a>
+      </div>
+      <div class="footer-meta">© {{ 'now' | date: '%Y' }} {{ site.title }}</div>
+    </footer>
+    <script>
+      (function() {
+        const root = document.documentElement;
+        const toggle = document.getElementById('theme-toggle');
+        const stored = localStorage.getItem('theme');
+        if (stored === 'dark') root.dataset.theme = 'dark';
+        toggle?.addEventListener('click', () => {
+          const next = root.dataset.theme === 'dark' ? 'light' : 'dark';
+          root.dataset.theme = next;
+          localStorage.setItem('theme', next);
+        });
+      })();
+    </script>
+  </body>
+</html>
