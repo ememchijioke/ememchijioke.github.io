@@ -3,25 +3,26 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>CV | Chijioke Emem</title>
+    <title>Edge LLMs for Privacy-Preserving Analytics: A 2025 Primer | Chijioke Emem</title>
     <link rel="stylesheet" href="/assets/css/style.css" />
     <link rel="icon" type="image/svg+xml" href="/assets/img/favicon.svg" />
     <link rel="alternate" type="application/atom+xml" title="Chijioke Emem Feed" href="/feed.xml" /><!-- Begin Jekyll SEO tag v2.8.0 -->
-<title>CV | Chijioke Emem</title>
+<title>Edge LLMs for Privacy-Preserving Analytics: A 2025 Primer | Chijioke Emem</title>
 <meta name="generator" content="Jekyll v4.4.1" />
-<meta property="og:title" content="CV" />
+<meta property="og:title" content="Edge LLMs for Privacy-Preserving Analytics: A 2025 Primer" />
 <meta name="author" content="Chijioke Emem" />
 <meta property="og:locale" content="en_US" />
-<meta name="description" content="Portfolio and writing on data science, engineering, and teaching." />
-<meta property="og:description" content="Portfolio and writing on data science, engineering, and teaching." />
-<link rel="canonical" href="http://localhost:4001/cv/" />
-<meta property="og:url" content="http://localhost:4001/cv/" />
+<meta name="description" content="Edge-capable LLMs (2–8B parameters) now fit on phones, kiosks, and industrial gateways. They unlock analytics without shipping raw data to the cloud. Here’s how to evaluate and deploy them safely." />
+<meta property="og:description" content="Edge-capable LLMs (2–8B parameters) now fit on phones, kiosks, and industrial gateways. They unlock analytics without shipping raw data to the cloud. Here’s how to evaluate and deploy them safely." />
+<link rel="canonical" href="http://localhost:4001/blog/2024/08/18/edge-llms-privacy/" />
+<meta property="og:url" content="http://localhost:4001/blog/2024/08/18/edge-llms-privacy/" />
 <meta property="og:site_name" content="Chijioke Emem" />
-<meta property="og:type" content="website" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2024-08-18T00:00:00+02:00" />
 <meta name="twitter:card" content="summary" />
-<meta property="twitter:title" content="CV" />
+<meta property="twitter:title" content="Edge LLMs for Privacy-Preserving Analytics: A 2025 Primer" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"WebPage","author":{"@type":"Person","name":"Chijioke Emem"},"description":"Portfolio and writing on data science, engineering, and teaching.","headline":"CV","url":"http://localhost:4001/cv/"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"Chijioke Emem"},"dateModified":"2024-08-18T00:00:00+02:00","datePublished":"2024-08-18T00:00:00+02:00","description":"Edge-capable LLMs (2–8B parameters) now fit on phones, kiosks, and industrial gateways. They unlock analytics without shipping raw data to the cloud. Here’s how to evaluate and deploy them safely.","headline":"Edge LLMs for Privacy-Preserving Analytics: A 2025 Primer","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4001/blog/2024/08/18/edge-llms-privacy/"},"url":"http://localhost:4001/blog/2024/08/18/edge-llms-privacy/"}</script>
 <!-- End Jekyll SEO tag -->
 </head>
   <body>
@@ -62,41 +63,62 @@
         </nav>
       </header>
       <main class="content">
-        <article class="page">
-  <h1 class="page-title">CV</h1>
-  <p class="page-subtitle">Snapshot of experience, teaching, and selected projects.</p>
-  <div class="page-body">
-    <h2 id="experience">Experience</h2>
+        <article class="post">
+  <p class="post-meta">
+    <span>August 18, 2024</span>
+    &nbsp;•&nbsp;
+    <span class="tags">edge, privacy, llm</span>
+  </p>
+  <h1 class="post-title">Edge LLMs for Privacy-Preserving Analytics: A 2025 Primer</h1>
+  <p class="post-subtitle">Running small language models on-device to keep user data local—and useful.</p>
+  <div class="post-body">
+    <p>Edge-capable LLMs (2–8B parameters) now fit on phones, kiosks, and industrial gateways. They unlock analytics without shipping raw data to the cloud. Here’s how to evaluate and deploy them safely.</p>
+
+<h2 id="1-why-edge">1) Why edge?</h2>
 
 <ul>
-  <li><strong>Lead Data Scientist — Independent</strong> (2021–present)<br />
-Partner with product teams to design, deliver, and operate ML features. Focus on evaluation, monitoring, and responsible release practices.</li>
-  <li><strong>Senior Data Scientist — Product Team</strong> (2018–2021)<br />
-Led experimentation and model development for ranking and recommendations. Scaled analytics workflows and mentored engineers on ML delivery.</li>
-  <li><strong>Data Analyst → Engineer</strong> (2014–2018)<br />
-Built data pipelines, dashboards, and prototypes that matured into ML-driven features.</li>
+  <li><strong>Privacy and compliance</strong>: avoid transmitting sensitive text/audio; easier consent and audit.</li>
+  <li><strong>Latency</strong>: sub-200ms responses for voice/assistive use cases.</li>
+  <li><strong>Cost and resilience</strong>: fewer round trips; continue working during outages.</li>
 </ul>
 
-<h2 id="teaching--writing">Teaching &amp; Writing</h2>
+<h2 id="2-model-choices-and-quantization">2) Model choices and quantization</h2>
 
 <ul>
-  <li>Instructor for workshops on trustworthy ML, evaluation, and monitoring.</li>
-  <li>Author of the Applied ML Playbook series and technical deep dives on practical modeling.</li>
-  <li>Mentor for early-career practitioners on shaping ML projects that ship.</li>
+  <li>Prefer <strong>4-bit or 8-bit</strong> quantization; test perplexity and task accuracy before/after quantization.</li>
+  <li>Distilled variants (e.g., 3B–7B) often retain intent classification and short-form generation quality.</li>
+  <li>Add a <strong>safety adapter</strong>: lightweight classifier or rule layer to filter outputs locally.</li>
 </ul>
 
-<h2 id="education">Education</h2>
+<figure>
+  <img src="/assets/img/diag-edge-llm.svg" alt="Edge LLM pipeline diagram showing on-device inference, local safety, and optional cloud fallback." />
+  <figcaption>Edge pipeline: on-device inference with local safety, then optional cloud fallback for heavy tasks.</figcaption>
+</figure>
+
+<h2 id="3-evaluation-checklist">3) Evaluation checklist</h2>
 
 <ul>
-  <li>M.S. in Data Science — Coursework in ML, statistics, and distributed systems.</li>
-  <li>B.S. in Computer Science — Focus on software engineering and algorithms.</li>
+  <li><strong>On-device latency</strong>: P50/P95 across warm and cold runs.</li>
+  <li><strong>Battery/thermal impact</strong>: power draw during 5-minute stress test; throttle if temp &gt; 40°C.</li>
+  <li><strong>Privacy budget</strong>: confirm no raw logs leave device; use hashed telemetry only.</li>
+  <li><strong>Task fit</strong>: measure exact-match/intent-F1 on your domain set pre- and post-quantization.</li>
 </ul>
 
-<h2 id="skills">Skills</h2>
+<h2 id="4-deployment-patterns">4) Deployment patterns</h2>
 
-<p>Python, PyTorch, scikit-learn, pandas, SQL, experiment design, evaluation, monitoring, ML system design, product analytics, technical writing, teaching.</p>
+<ul>
+  <li><strong>Hybrid routing</strong>: route easy/short queries to edge; long-form or complex tasks to cloud.</li>
+  <li><strong>Local embeddings</strong>: run a small encoder to keep retrieval private; periodically sync index deltas.</li>
+  <li><strong>Update strategy</strong>: ship signed model bundles; include rollback and checksum verification.</li>
+</ul>
 
-<p>Need a formal PDF? Email hello@ememchijioke.com for a tailored copy.</p>
+<h2 id="takeaways">Takeaways</h2>
+
+<ul>
+  <li>Edge LLMs are practical in 2025 for intent, summarization, and short-form generation.</li>
+  <li>Quantization + safety adapters are essential; measure impact before rollout.</li>
+  <li>Keep privacy-by-default: local logs, hashed telemetry, and clear user controls.</li>
+</ul>
 
   </div>
 </article>

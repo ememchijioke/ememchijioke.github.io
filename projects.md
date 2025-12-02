@@ -5,35 +5,46 @@ subtitle: "Selected work, courses, and open resources."
 permalink: /projects/
 ---
 
-<div class="project" id="edgeprep">
-  <h3>EdgePrep</h3>
-  <p class="muted">Reusable data preparation patterns for compact ML pipelines.</p>
+<div class="project" id="uav-mappo">
+  <h3>UAV Multi-Agent Reinforcement Learning (Formation Control)</h3>
+  <p class="muted">PyBullet-based research on decentralized formation control for quadrotors using shared-policy MAPPO.</p>
   <ul>
-    <li>Notebook-driven recipes for cleaning, validation, and feature checks.</li>
-    <li>Examples in Python with reproducible Make targets.</li>
-    <li>MIT licensed and ready for adaptation.</li>
+    <li>Multi-agent coordination, reward shaping, and sim-to-real constraints.</li>
+    <li>Structured experimentation with reproducible code and logs.</li>
+    <li>Focus on formation stability and shared-policy training.</li>
   </ul>
-  <p><a href="https://github.com/ememchijioke/edgeprep">Repository</a></p>
+  <p><a href="https://github.com/ememchijioke/uav-multi-agent-mappo">Repository</a></p>
 </div>
 
-<div class="project" id="reliable-ml">
-  <h3>Reliable ML in Production</h3>
-  <p class="muted">A hands-on workshop for teams deploying models in real products.</p>
+<div class="project" id="traceble">
+  <h3>TraceBLE — Indoor Localization with BLE</h3>
+  <p class="muted">Indoor-positioning system using BLE scanning, RSSI smoothing, filtering, and a lightweight Flask dashboard.</p>
   <ul>
-    <li>Evaluation playbook with real-world datasets.</li>
-    <li>Monitoring patterns for drift, feedback, and human-in-the-loop review.</li>
-    <li>Deployment labs using lightweight tooling your team can maintain.</li>
+    <li>Signal processing and filtering for reliable RSSI readings.</li>
+    <li>Practical system design with data collection pipelines.</li>
+    <li>Simple dashboard for monitoring indoor positions.</li>
   </ul>
-  <p><a href="{{ '/contact/' | relative_url }}">Invite me to your team</a></p>
+  <p><a href="https://github.com/ememchijioke/traceble-indoor-localization">Repository</a></p>
 </div>
 
-<div class="project" id="applied-ml-playbook">
-  <h3>Applied ML Playbook</h3>
-  <p class="muted">Guides for pragmatic ML: experimentation, baselines, and trustworthy releases.</p>
+<div class="project" id="automation-security">
+  <h3>Python Automation &amp; Cloud Security Exercises</h3>
+  <p class="muted">Hands-on scripts and utilities exploring automation, cloud workflows, and security concepts.</p>
   <ul>
-    <li>Articles and checklists you can plug into your workflow.</li>
-    <li>Templates for model cards, experiment logs, and project kickoffs.</li>
-    <li>Ongoing updates based on lessons from shipping features.</li>
+    <li>IAM basics, container setup, and CI/CD habits.</li>
+    <li>File processing, cloud automation, and security hygiene.</li>
+    <li>Practical Python engineering for small, reliable tools.</li>
   </ul>
-  <p><a href="{{ '/blog/' | relative_url }}">Read the series</a></p>
+  <p><a href="https://github.com/ememchijioke/python-automation-security-exercises">Repository</a></p>
+</div>
+
+<div class="project" id="carracing-rl">
+  <h3>Reinforcement Learning Experiments (CarRacing-v2)</h3>
+  <p class="muted">Learning-driven PPO/SAC experiments focused on training pipelines, logging, and evaluation.</p>
+  <ul>
+    <li>Reproducibility, environment handling, and training analysis.</li>
+    <li>Agent evaluation with clear metrics and structured logs.</li>
+    <li>Exploring hyperparameters and rollout strategies.</li>
+  </ul>
+  <p><a href="https://github.com/ememchijioke/carracing-rl-experiments">Repository</a></p>
 </div>

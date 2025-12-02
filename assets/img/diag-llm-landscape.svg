@@ -1,0 +1,32 @@
+<svg width="760" height="320" viewBox="0 0 760 320" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="760" height="320" rx="16" fill="#0F1829"/>
+  <text x="380" y="32" fill="#F9FAFC" font-family="Helvetica, Arial, sans-serif" font-size="16" text-anchor="middle">LLM Landscape 2025</text>
+
+  <rect x="60" y="70" width="150" height="80" rx="12" fill="#2B9DD7"/>
+  <text x="135" y="110" fill="#F9FAFC" font-family="Helvetica, Arial, sans-serif" font-size="13" text-anchor="middle">Dense LLMs</text>
+  <text x="135" y="128" fill="#F9FAFC" font-family="Helvetica, Arial, sans-serif" font-size="11" text-anchor="middle">General purpose</text>
+
+  <rect x="280" y="70" width="150" height="80" rx="12" fill="#1E2C45" stroke="#9BC5FF" stroke-width="2"/>
+  <text x="355" y="106" fill="#F9FAFC" font-family="Helvetica, Arial, sans-serif" font-size="13" text-anchor="middle">MoE</text>
+  <text x="355" y="124" fill="#F9FAFC" font-family="Helvetica, Arial, sans-serif" font-size="11" text-anchor="middle">Sparse, cheaper tokens</text>
+
+  <rect x="500" y="70" width="150" height="80" rx="12" fill="#2B9DD7"/>
+  <text x="575" y="106" fill="#F9FAFC" font-family="Helvetica, Arial, sans-serif" font-size="13" text-anchor="middle">Small / Edge</text>
+  <text x="575" y="124" fill="#F9FAFC" font-family="Helvetica, Arial, sans-serif" font-size="11" text-anchor="middle">Privacy, latency</text>
+
+  <rect x="150" y="190" width="140" height="80" rx="12" fill="#1E2C45" stroke="#9BC5FF" stroke-width="2"/>
+  <text x="220" y="226" fill="#F9FAFC" font-family="Helvetica, Arial, sans-serif" font-size="13" text-anchor="middle">Retrieval + Tools</text>
+  <text x="220" y="244" fill="#F9FAFC" font-family="Helvetica, Arial, sans-serif" font-size="11" text-anchor="middle">Grounded + actionable</text>
+
+  <rect x="360" y="190" width="140" height="80" rx="12" fill="#2B9DD7"/>
+  <text x="430" y="226" fill="#F9FAFC" font-family="Helvetica, Arial, sans-serif" font-size="13" text-anchor="middle">Adapters</text>
+  <text x="430" y="244" fill="#F9FAFC" font-family="Helvetica, Arial, sans-serif" font-size="11" text-anchor="middle">Domain tuning</text>
+
+  <rect x="570" y="190" width="140" height="80" rx="12" fill="#1E2C45" stroke="#9BC5FF" stroke-width="2"/>
+  <text x="640" y="226" fill="#F9FAFC" font-family="Helvetica, Arial, sans-serif" font-size="13" text-anchor="middle">Safety / Eval</text>
+  <text x="640" y="244" fill="#F9FAFC" font-family="Helvetica, Arial, sans-serif" font-size="11" text-anchor="middle">Policy, latency, cost</text>
+
+  <path d="M210 150 C230 170 230 170 220 190" stroke="#F9FAFC" stroke-width="2" stroke-linecap="round"/>
+  <path d="M430 150 C440 170 440 170 430 190" stroke="#F9FAFC" stroke-width="2" stroke-linecap="round"/>
+  <path d="M570 150 C600 170 610 170 640 190" stroke="#F9FAFC" stroke-width="2" stroke-linecap="round"/>
+</svg>

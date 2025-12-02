@@ -1,32 +1,220 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.4.1">Jekyll</generator><link href="http://localhost:4001/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4001/" rel="alternate" type="text/html" /><updated>2025-12-02T14:33:55+01:00</updated><id>http://localhost:4001/feed.xml</id><title type="html">Chijioke Emem</title><subtitle>Portfolio and writing on data science, engineering, and teaching.</subtitle><author><name>Chijioke Emem</name><email>hello@ememchijioke.com</email></author><entry><title type="html">A Pragmatic Checklist for Evaluating ML Systems</title><link href="http://localhost:4001/blog/2024/10/15/evaluating-ml-systems/" rel="alternate" type="text/html" title="A Pragmatic Checklist for Evaluating ML Systems" /><published>2024-10-15T00:00:00+02:00</published><updated>2024-10-15T00:00:00+02:00</updated><id>http://localhost:4001/blog/2024/10/15/evaluating-ml-systems</id><content type="html" xml:base="http://localhost:4001/blog/2024/10/15/evaluating-ml-systems/"><![CDATA[<p>Every ML project I ship starts with a written evaluation plan. It forces alignment on why the model exists, what good looks like, and how we will measure trade-offs once it is live.</p>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.4.1">Jekyll</generator><link href="http://localhost:4001/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4001/" rel="alternate" type="text/html" /><updated>2025-12-02T15:33:53+01:00</updated><id>http://localhost:4001/feed.xml</id><title type="html">Chijioke Emem</title><subtitle>Portfolio and writing on data science, engineering, and teaching.</subtitle><author><name>Chijioke Emem</name><email>hello@ememchijioke.com</email></author><entry><title type="html">Beyond Standard LLMs in 2025: Mixtures, Small Models, and Agents</title><link href="http://localhost:4001/blog/2025/02/10/beyond-standard-llms/" rel="alternate" type="text/html" title="Beyond Standard LLMs in 2025: Mixtures, Small Models, and Agents" /><published>2025-02-10T00:00:00+01:00</published><updated>2025-02-10T00:00:00+01:00</updated><id>http://localhost:4001/blog/2025/02/10/beyond-standard-llms</id><content type="html" xml:base="http://localhost:4001/blog/2025/02/10/beyond-standard-llms/"><![CDATA[<p>We’re past the era of “just fine-tune a decoder-only model.” The frontier now includes mixture-of-experts (MoE) systems, compact edge models, retrieval+tools, and specialized evaluation for safety and latency. Here’s a practical tour of what matters in 2025.</p>
 
-<p><strong>1) Establish a strong baseline.</strong> I default to simple heuristic or rules-based baselines that match the deployment constraints. If a model cannot beat this convincingly, we stop.</p>
+<figure>
+  <img src="/assets/img/diag-llm-landscape.svg" alt="Diagram of modern LLM landscape: MoE, small/edge, retrieval+tools, safety, and domain adapters." />
+  <figcaption>Modern LLM landscape: one-size-fits-all is replaced by mixtures, edge models, retrieval+tools, and adapters.</figcaption>
+</figure>
 
-<p><strong>2) Separate offline metrics from decision quality.</strong> I track AUC/accuracy for diagnostics, but I frame success in terms of product outcomes: reduced manual review time, better matches, or fewer bad cases reaching users.</p>
-
-<p><strong>3) Design for slices, not averages.</strong> I pre-define critical slices (new users, rare categories, low-light images) and budget evaluation time to stress them. Surprises almost always hide in the tails.</p>
-
-<p><strong>4) Measure risk and trust.</strong> For user-facing models I add human-in-the-loop checks, fallbacks, or holdouts that reduce downside risk while we learn.</p>
-
-<p><strong>5) Monitor like we mean it.</strong> Post-launch, I track input drift, output distributions, and human override rates. Alerts tie back to the same metrics we used to green-light the model.</p>
-
-<p>If you want a template for your next project, grab the model card and experiment log samples on the Projects page.</p>]]></content><author><name>Chijioke Emem</name><email>hello@ememchijioke.com</email></author><category term="evaluation" /><category term="ml" /><category term="practices" /><summary type="html"><![CDATA[Every ML project I ship starts with a written evaluation plan. It forces alignment on why the model exists, what good looks like, and how we will measure trade-offs once it is live.]]></summary></entry><entry><title type="html">Lightweight ML Observability Without a Platform Team</title><link href="http://localhost:4001/blog/2024/08/20/lightweight-ml-observability/" rel="alternate" type="text/html" title="Lightweight ML Observability Without a Platform Team" /><published>2024-08-20T00:00:00+02:00</published><updated>2024-08-20T00:00:00+02:00</updated><id>http://localhost:4001/blog/2024/08/20/lightweight-ml-observability</id><content type="html" xml:base="http://localhost:4001/blog/2024/08/20/lightweight-ml-observability/"><![CDATA[<p>You do not need an MLOps platform to monitor models. You need a tight loop that catches issues early and is easy to maintain.</p>
+<h2 id="1-moe-as-the-new-default-for-scale">1) MoE as the new default for scale</h2>
 
 <ul>
-  <li><strong>Log compact features.</strong> Ship a small, privacy-safe vector of inputs and outputs so you can plot distributions without recreating the full pipeline.</li>
-  <li><strong>Track disagreement.</strong> When humans override the model, record it. Override rates become an early warning for concept drift.</li>
-  <li><strong>Budget for labeling.</strong> A tiny weekly labeling sprint on fresh data beats a one-off labeling push before launch.</li>
-  <li><strong>Alert on shapes, not single numbers.</strong> I alert on KL divergence of key features and on the ratio of high/low confidence predictions instead of a single accuracy figure.</li>
-  <li><strong>Review together.</strong> Pair monitoring with a weekly evaluation review so product, engineering, and DS align on what to fix.</li>
+  <li><strong>Sparse activation saves cost</strong>: only a subset of experts fire per token, giving “wider” models without proportional compute.</li>
+  <li><strong>Routing quality matters</strong>: monitor expert utilization entropy; low entropy = wasted capacity.</li>
+  <li><strong>Distillation path</strong>: distilled dense students from MoE teachers can be competitive on many tasks.</li>
 </ul>
 
-<p>These patterns have worked for small teams that cannot dedicate headcount to platform work but still want trustworthy ML in production.</p>]]></content><author><name>Chijioke Emem</name><email>hello@ememchijioke.com</email></author><category term="monitoring" /><category term="mlops" /><summary type="html"><![CDATA[You do not need an MLOps platform to monitor models. You need a tight loop that catches issues early and is easy to maintain.]]></summary></entry><entry><title type="html">Teaching ML in the Open</title><link href="http://localhost:4001/blog/2024/05/12/teaching-ml-in-the-open/" rel="alternate" type="text/html" title="Teaching ML in the Open" /><published>2024-05-12T00:00:00+02:00</published><updated>2024-05-12T00:00:00+02:00</updated><id>http://localhost:4001/blog/2024/05/12/teaching-ml-in-the-open</id><content type="html" xml:base="http://localhost:4001/blog/2024/05/12/teaching-ml-in-the-open/"><![CDATA[<p>I used to wait until ideas felt “finished” before sharing. The result was fewer artifacts and slower learning. Publishing early drafts changed that.</p>
+<p><strong>What to ship:</strong> pick a stable open MoE (e.g., 1–2 active experts) and pair with an evaluation harness that logs routing balance and expert load.</p>
+
+<h2 id="2-small-and-edge-models-grow-up">2) Small and edge models grow up</h2>
 
 <ul>
-  <li><strong>Transparency builds trust.</strong> Students appreciate seeing the messy intermediate steps and how I debug models in real time.</li>
-  <li><strong>Repetition beats novelty.</strong> Revisiting the same idea through posts, talks, and code samples helps it stick for both me and the audience.</li>
-  <li><strong>Small wins compound.</strong> A simple notebook that solves one thorny problem often becomes the most reused resource in a workshop.</li>
-  <li><strong>Feedback comes faster.</strong> Early readers highlight missing context, shaky assumptions, or better baselines long before a launch.</li>
+  <li><strong>2–8B models</strong> handle classification, summarization, and short-form generation on-device.</li>
+  <li><strong>Quantization first</strong>: test 4-bit/8-bit before/after task accuracy; measure latency on target hardware.</li>
+  <li><strong>Safety adapters locally</strong>: run a lightweight classifier/rules layer on-device before output.</li>
 </ul>
 
-<p>If you’re teaching ML, consider sharing the journey instead of just the destination. The community benefits, and you will too.</p>]]></content><author><name>Chijioke Emem</name><email>hello@ememchijioke.com</email></author><category term="learning" /><category term="teaching" /><summary type="html"><![CDATA[I used to wait until ideas felt “finished” before sharing. The result was fewer artifacts and slower learning. Publishing early drafts changed that.]]></summary></entry></feed>
+<p><strong>What to ship:</strong> a 4–8B quantized model with a local safety layer for privacy-preserving analytics, and a cloud fallback for heavy tasks.</p>
+
+<h2 id="3-retrieval--tools-become-table-stakes">3) Retrieval + tools become table stakes</h2>
+
+<ul>
+  <li><strong>Retrieval = grounding</strong>: source diversity and freshness reduce hallucination. Track groundedness @K and entropy of sources.</li>
+  <li><strong>Tools = action</strong>: form-filling, API calls, calculators. Add guardrails: allow/deny lists, rate limits, and red-team scripts.</li>
+  <li><strong>Latency budget</strong>: cap hops; log per-step latency and enforce adaptive depth (skip second retrieval pass if SLA is hit).</li>
+</ul>
+
+<figure>
+  <img src="/assets/img/chart-llm-performance.svg" alt="Bar/line chart comparing MoE, dense, and small/edge models across quality vs latency." />
+  <figcaption>Quality vs. latency: MoE &gt; dense on quality, small/edge wins on latency; retrieval+tools narrows the gap.</figcaption>
+</figure>
+
+<h2 id="4-domain-adapters-beat-broad-fine-tunes">4) Domain adapters beat broad fine-tunes</h2>
+
+<ul>
+  <li><strong>Light adapters</strong> (LoRA/IA3) tuned on domain corpora beat full fine-tunes for most orgs.</li>
+  <li><strong>Data curation &gt; size</strong>: 5–20k high-quality domain samples can move the needle more than large noisy dumps.</li>
+  <li><strong>Update cadence</strong>: ship adapters monthly; keep a clean base model for rollback and reproducibility.</li>
+</ul>
+
+<h2 id="5-evaluation-that-matches-reality">5) Evaluation that matches reality</h2>
+
+<ul>
+  <li><strong>Slices over averages</strong>: stress high-risk categories, negations, and recent events.</li>
+  <li><strong>Safety + policy</strong>: refusal quality, tool misuse, PII leakage; automate with red-team prompt suites.</li>
+  <li><strong>Latency + cost</strong>: report P50/P95 and tokens/$ by path (dense vs MoE vs edge).</li>
+  <li><strong>Human-in-the-loop</strong>: weekly expert review (30–50 samples) with clarity/grounding scores.</li>
+</ul>
+
+<h2 id="quick-playbook-copypaste">Quick playbook (copy/paste)</h2>
+
+<ul>
+  <li>Pick a <strong>baseline</strong> (dense) and a <strong>MoE</strong> model; measure routing balance.</li>
+  <li>Add <strong>retrieval + tools</strong> with allow/deny lists; cap hops for latency.</li>
+  <li>Ship a <strong>small/edge</strong> model for privacy-sensitive or offline slices.</li>
+  <li>Use <strong>adapters</strong> for domain updates; monthly releases with rollback.</li>
+  <li>Evaluate on <strong>safety, slices, latency, cost</strong>, and run weekly expert review.</li>
+</ul>
+
+<h2 id="resources-to-start-fast">Resources to start fast</h2>
+
+<ul>
+  <li>MoE routing metrics and load dashboards.</li>
+  <li>Retrieval evaluation harness with groundedness @K, diversity, freshness.</li>
+  <li>Edge evaluation notebook (latency, battery, thermal).</li>
+  <li>Safety red-team scripts and refusal scoring.</li>
+  <li>Adapter training template (LoRA/IA3) with reproducible config.</li>
+</ul>]]></content><author><name>Chijioke Emem</name><email>hello@ememchijioke.com</email></author><category term="llm" /><category term="agents" /><category term="mixture-of-experts" /><category term="edge" /><category term="evaluation" /><summary type="html"><![CDATA[We’re past the era of “just fine-tune a decoder-only model.” The frontier now includes mixture-of-experts (MoE) systems, compact edge models, retrieval+tools, and specialized evaluation for safety and latency. Here’s a practical tour of what matters in 2025.]]></summary></entry><entry><title type="html">Evaluating Agentic RAG Systems: Safety, Latency, and Retrieval Quality</title><link href="http://localhost:4001/blog/2024/11/20/evaluating-agentic-rag/" rel="alternate" type="text/html" title="Evaluating Agentic RAG Systems: Safety, Latency, and Retrieval Quality" /><published>2024-11-20T00:00:00+01:00</published><updated>2024-11-20T00:00:00+01:00</updated><id>http://localhost:4001/blog/2024/11/20/evaluating-agentic-rag</id><content type="html" xml:base="http://localhost:4001/blog/2024/11/20/evaluating-agentic-rag/"><![CDATA[<p>Retrieval-augmented generation has evolved into <em>agentic</em> workflows: tools, planning, and iterative lookups. The evaluation surface is now wider—latency, hallucination, safety, and retrieval quality all interplay. Here is a compact, field-tested rubric you can run before launch.</p>
+
+<h2 id="1-retrieval-quality-and-grounding">1) Retrieval quality and grounding</h2>
+
+<ul>
+  <li><strong>Groundedness @K</strong>: sample 200 queries, compute overlap between answer spans and retrieved passages; report % with ≥70% grounded content.</li>
+  <li><strong>Diversity</strong>: ensure ≥2 sources per answer; measure entropy of source domains to avoid single-source bias.</li>
+  <li><strong>Freshness checks</strong>: inject queries on recent events and compare to dated corpora; log stale-hit rates.</li>
+</ul>
+
+<figure>
+  <img src="/assets/img/diag-rag-eval.svg" alt="Pipeline diagram showing query → retriever → reranker → agent → policy checks → response." />
+  <figcaption>Agentic RAG evaluation flow: retrieval quality feeds policy checks before response.</figcaption>
+</figure>
+
+<h2 id="2-policy-and-safety">2) Policy and safety</h2>
+
+<ul>
+  <li><strong>Tool guardrails</strong>: denylist/allowlist for tools; simulate 50 red-team prompts with tool use enabled; target ≤2% unsafe tool calls.</li>
+  <li><strong>Refusal quality</strong>: measure polite refusals across sensitive categories; track tone via sentiment classifier.</li>
+  <li><strong>PII handling</strong>: scripted prompts to extract PII from synthetic profiles; measure leak rate and redactability.</li>
+</ul>
+
+<h2 id="3-latency-budget">3) Latency budget</h2>
+
+<ul>
+  <li><strong>P50/P95 targets</strong>: set a hard SLA (e.g., 1.5s P50, 3.0s P95).</li>
+  <li><strong>Step accounting</strong>: log per-hop latencies (retriever, reranker, model, tool).</li>
+  <li><strong>Adaptive depth</strong>: add a “budget-aware” policy—skip second retrieval pass if P50 already exceeded.</li>
+</ul>
+
+<h2 id="4-human-feedback-and-live-tests">4) Human feedback and live tests</h2>
+
+<ul>
+  <li><strong>Expert checklists</strong>: 30-sample weekly review with domain experts; score clarity, correctness, citations.</li>
+  <li><strong>Counterfactuals</strong>: perturb top queries (negations, entity swaps) and ensure retrieval/answers adapt.</li>
+  <li><strong>Rollout</strong>: start with % traffic shadowing and compare against baseline chatbot via win-rate.</li>
+</ul>
+
+<h2 id="quick-checklist-copypaste">Quick checklist (copy/paste)</h2>
+
+<ul class="task-list">
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Groundedness @K &gt;= 80%</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />≥2 sources per answer; domain entropy logged</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Red-team unsafe tool use ≤ 2%</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />P50 ≤ 1.5s, P95 ≤ 3.0s with per-step logs</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Weekly expert review (30 samples)</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Counterfactual prompts in regression suite</li>
+  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Shadow rollout with win-rate vs. baseline</li>
+</ul>
+
+<p>If you want a ready-to-run notebook with these probes (plus logging hooks), reach out and I’ll share the evaluation harness.</p>]]></content><author><name>Chijioke Emem</name><email>hello@ememchijioke.com</email></author><category term="rag" /><category term="evaluation" /><category term="agents" /><summary type="html"><![CDATA[Retrieval-augmented generation has evolved into agentic workflows: tools, planning, and iterative lookups. The evaluation surface is now wider—latency, hallucination, safety, and retrieval quality all interplay. Here is a compact, field-tested rubric you can run before launch.]]></summary></entry><entry><title type="html">Synthetic Data for LLM Testing: When It Helps and When It Hurts</title><link href="http://localhost:4001/blog/2024/10/05/synthetic-data-eval/" rel="alternate" type="text/html" title="Synthetic Data for LLM Testing: When It Helps and When It Hurts" /><published>2024-10-05T00:00:00+02:00</published><updated>2024-10-05T00:00:00+02:00</updated><id>http://localhost:4001/blog/2024/10/05/synthetic-data-eval</id><content type="html" xml:base="http://localhost:4001/blog/2024/10/05/synthetic-data-eval/"><![CDATA[<p>Synthetic data speeds up red-teaming and regression testing, but it can also hide failure modes. Here’s how to use it responsibly in 2025.</p>
+
+<h2 id="1-what-synthetic-data-is-good-for">1) What synthetic data is good for</h2>
+
+<ul>
+  <li><strong>Pattern coverage</strong>: rapidly generate rare edge cases (dates, currencies, multilingual snippets).</li>
+  <li><strong>Controlled perturbations</strong>: apply negation, entity swap, and adversarial typos to known-good prompts.</li>
+  <li><strong>Volume</strong>: build 1k–10k-item test sets in hours, not weeks.</li>
+</ul>
+
+<figure>
+  <img src="/assets/img/chart-synth-mix.svg" alt="Bar chart showing mix of real vs synthetic cases across categories." />
+  <figcaption>Balanced mix: keep ≥30–50% real items per category to avoid drift into synthetic-only behavior.</figcaption>
+</figure>
+
+<h2 id="2-where-it-fails">2) Where it fails</h2>
+
+<ul>
+  <li><strong>Distribution shift</strong>: model may overfit to templated phrasing; monitor lexical diversity (type-token ratio).</li>
+  <li><strong>Reality gaps</strong>: factuality and world knowledge don’t improve with synthetic labels.</li>
+  <li><strong>Style mismatch</strong>: customer tone and messy inputs are hard to mimic; keep real samples in every sprint.</li>
+</ul>
+
+<h2 id="3-a-workable-recipe">3) A workable recipe</h2>
+
+<ul>
+  <li>Start with <strong>30–50% real</strong> data per category.</li>
+  <li>Generate synthetic variants using multiple models and prompts; measure lexical diversity.</li>
+  <li>Calibrate difficulty: include easy/medium/hard labels, not just adversarial cases.</li>
+  <li><strong>Validate with humans</strong>: 100 random items per sprint; annotate realism and usefulness.</li>
+</ul>
+
+<h2 id="4-metrics-to-track">4) Metrics to track</h2>
+
+<ul>
+  <li><strong>Real/synth ratio per category</strong>.</li>
+  <li><strong>Lexical diversity</strong> (type-token ratio, distinct-3).</li>
+  <li><strong>Factuality</strong> on real-only slices.</li>
+  <li><strong>Regression stability</strong>: % of passing tests across sprints, separated by real vs. synthetic items.</li>
+</ul>
+
+<h2 id="takeaways">Takeaways</h2>
+
+<ul>
+  <li>Use synthetic data to <em>augment</em>, not replace, real cases.</li>
+  <li>Track diversity and realism; keep humans in the loop.</li>
+  <li>Segment reporting by real vs. synthetic to avoid “green dashboards, broken product.”</li>
+</ul>]]></content><author><name>Chijioke Emem</name><email>hello@ememchijioke.com</email></author><category term="synthetic-data" /><category term="evaluation" /><category term="llm" /><summary type="html"><![CDATA[Synthetic data speeds up red-teaming and regression testing, but it can also hide failure modes. Here’s how to use it responsibly in 2025.]]></summary></entry><entry><title type="html">Edge LLMs for Privacy-Preserving Analytics: A 2025 Primer</title><link href="http://localhost:4001/blog/2024/08/18/edge-llms-privacy/" rel="alternate" type="text/html" title="Edge LLMs for Privacy-Preserving Analytics: A 2025 Primer" /><published>2024-08-18T00:00:00+02:00</published><updated>2024-08-18T00:00:00+02:00</updated><id>http://localhost:4001/blog/2024/08/18/edge-llms-privacy</id><content type="html" xml:base="http://localhost:4001/blog/2024/08/18/edge-llms-privacy/"><![CDATA[<p>Edge-capable LLMs (2–8B parameters) now fit on phones, kiosks, and industrial gateways. They unlock analytics without shipping raw data to the cloud. Here’s how to evaluate and deploy them safely.</p>
+
+<h2 id="1-why-edge">1) Why edge?</h2>
+
+<ul>
+  <li><strong>Privacy and compliance</strong>: avoid transmitting sensitive text/audio; easier consent and audit.</li>
+  <li><strong>Latency</strong>: sub-200ms responses for voice/assistive use cases.</li>
+  <li><strong>Cost and resilience</strong>: fewer round trips; continue working during outages.</li>
+</ul>
+
+<h2 id="2-model-choices-and-quantization">2) Model choices and quantization</h2>
+
+<ul>
+  <li>Prefer <strong>4-bit or 8-bit</strong> quantization; test perplexity and task accuracy before/after quantization.</li>
+  <li>Distilled variants (e.g., 3B–7B) often retain intent classification and short-form generation quality.</li>
+  <li>Add a <strong>safety adapter</strong>: lightweight classifier or rule layer to filter outputs locally.</li>
+</ul>
+
+<figure>
+  <img src="/assets/img/diag-edge-llm.svg" alt="Edge LLM pipeline diagram showing on-device inference, local safety, and optional cloud fallback." />
+  <figcaption>Edge pipeline: on-device inference with local safety, then optional cloud fallback for heavy tasks.</figcaption>
+</figure>
+
+<h2 id="3-evaluation-checklist">3) Evaluation checklist</h2>
+
+<ul>
+  <li><strong>On-device latency</strong>: P50/P95 across warm and cold runs.</li>
+  <li><strong>Battery/thermal impact</strong>: power draw during 5-minute stress test; throttle if temp &gt; 40°C.</li>
+  <li><strong>Privacy budget</strong>: confirm no raw logs leave device; use hashed telemetry only.</li>
+  <li><strong>Task fit</strong>: measure exact-match/intent-F1 on your domain set pre- and post-quantization.</li>
+</ul>
+
+<h2 id="4-deployment-patterns">4) Deployment patterns</h2>
+
+<ul>
+  <li><strong>Hybrid routing</strong>: route easy/short queries to edge; long-form or complex tasks to cloud.</li>
+  <li><strong>Local embeddings</strong>: run a small encoder to keep retrieval private; periodically sync index deltas.</li>
+  <li><strong>Update strategy</strong>: ship signed model bundles; include rollback and checksum verification.</li>
+</ul>
+
+<h2 id="takeaways">Takeaways</h2>
+
+<ul>
+  <li>Edge LLMs are practical in 2025 for intent, summarization, and short-form generation.</li>
+  <li>Quantization + safety adapters are essential; measure impact before rollout.</li>
+  <li>Keep privacy-by-default: local logs, hashed telemetry, and clear user controls.</li>
+</ul>]]></content><author><name>Chijioke Emem</name><email>hello@ememchijioke.com</email></author><category term="edge" /><category term="privacy" /><category term="llm" /><summary type="html"><![CDATA[Edge-capable LLMs (2–8B parameters) now fit on phones, kiosks, and industrial gateways. They unlock analytics without shipping raw data to the cloud. Here’s how to evaluate and deploy them safely.]]></summary></entry></feed>

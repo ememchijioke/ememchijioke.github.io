@@ -1,0 +1,27 @@
+<svg width="760" height="320" viewBox="0 0 760 320" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="760" height="320" rx="16" fill="#0F1829"/>
+  <text x="380" y="36" fill="#F9FAFC" font-family="Helvetica, Arial, sans-serif" font-size="16" text-anchor="middle">Real vs Synthetic Mix by Category</text>
+  <line x1="80" y1="260" x2="700" y2="260" stroke="#1E2C45" stroke-width="2"/>
+
+  <rect x="100" y="160" width="60" height="100" rx="6" fill="#2B9DD7"/>
+  <rect x="165" y="200" width="60" height="60" rx="6" fill="#9BC5FF"/>
+
+  <rect x="260" y="130" width="60" height="130" rx="6" fill="#2B9DD7"/>
+  <rect x="325" y="195" width="60" height="65" rx="6" fill="#9BC5FF"/>
+
+  <rect x="420" y="110" width="60" height="150" rx="6" fill="#2B9DD7"/>
+  <rect x="485" y="195" width="60" height="65" rx="6" fill="#9BC5FF"/>
+
+  <rect x="580" y="140" width="60" height="120" rx="6" fill="#2B9DD7"/>
+  <rect x="645" y="205" width="60" height="55" rx="6" fill="#9BC5FF"/>
+
+  <text x="130" y="280" fill="#F9FAFC" font-family="Helvetica, Arial, sans-serif" font-size="12" text-anchor="middle">Support</text>
+  <text x="290" y="280" fill="#F9FAFC" font-family="Helvetica, Arial, sans-serif" font-size="12" text-anchor="middle">Finance</text>
+  <text x="450" y="280" fill="#F9FAFC" font-family="Helvetica, Arial, sans-serif" font-size="12" text-anchor="middle">Travel</text>
+  <text x="610" y="280" fill="#F9FAFC" font-family="Helvetica, Arial, sans-serif" font-size="12" text-anchor="middle">Healthcare</text>
+
+  <rect x="100" y="60" width="18" height="18" rx="4" fill="#2B9DD7"/>
+  <text x="125" y="74" fill="#F9FAFC" font-family="Helvetica, Arial, sans-serif" font-size="12" text-anchor="start">Real</text>
+  <rect x="180" y="60" width="18" height="18" rx="4" fill="#9BC5FF"/>
+  <text x="205" y="74" fill="#F9FAFC" font-family="Helvetica, Arial, sans-serif" font-size="12" text-anchor="start">Synthetic</text>
+</svg>

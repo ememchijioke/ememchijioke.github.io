@@ -8,6 +8,11 @@ permalink: /
   <section class="hero">
     <div class="hero-text">
       <h1>Hello, I'm {{ site.author.name }}.</h1>
+      <div class="context-row">
+        <span class="context-item">📍 Klagenfurt, Austria</span>
+        <span class="context-divider"></span>
+        <span class="context-badge">● Open to collaborations</span>
+      </div>
       <p>I am currently pursuing graduate studies in Artificial Intelligence, Cybersecurity, and Autonomous Systems, with a growing interest in automation, security engineering, and practical machine learning. My work sits at the intersection of intelligent systems and real-world problem solving, where I focus on building clear, reliable, and well-structured solutions.</p>
       <p>I build and evaluate ML features end-to-end, emphasizing responsible deployment, monitoring, and clear documentation. For my most up-to-date work, explore the links below.</p>
     </div>

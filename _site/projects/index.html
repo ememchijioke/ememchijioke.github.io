@@ -36,10 +36,10 @@
 
             <div class="brand-icons">
               <a href="https://x.com/ememchijioke" class="icon-link" aria-label="X / Twitter">
-                <svg viewBox="0 0 24 24" role="presentation"><path d="M4 4h3.2l4 4.8L15 4h5l-6 7.2L20 20h-3.2l-4.2-5.1L8.8 20H4l6.3-7.6z" fill="currentColor"/></svg>
+                <img src="/assets/img/icon-x-solid.svg" alt="X logo" />
               </a>
-              <a href="https://www.linkedin.com/in/ememchijioke" class="icon-link" aria-label="LinkedIn">
-                <svg viewBox="0 0 24 24" role="presentation"><path d="M5.2 9.1V19H2V9.1h3.2zm.2-3.6c0 1-.8 1.8-1.8 1.8C2.6 7.3 1.8 6.5 1.8 5.5S2.6 3.7 3.6 3.7s1.8.8 1.8 1.8zM22 19h-3.2v-5.2c0-1.2 0-2.8-1.8-2.8s-2 1.4-2 2.7V19H11V9.1h3v1.3h.1c.4-.8 1.5-1.6 3-1.6 3.1 0 3.7 2 3.7 4.6V19z" fill="currentColor"/></svg>
+              <a href="https://www.linkedin.com/in/ememchijioke" class="icon-link linkedin" aria-label="LinkedIn">
+                <img src="/assets/img/icon-linkedin-solid.svg" alt="LinkedIn" />
               </a>
               <a href="https://github.com/ememchijioke" class="icon-link" aria-label="GitHub">
                 <svg viewBox="0 0 24 24" role="presentation"><path d="M12 .5C5.6.5.5 5.6.5 12c0 5.1 3.3 9.4 7.9 10.9.6.1.8-.3.8-.6v-2c-3.2.7-3.9-1.5-3.9-1.5-.5-1.2-1.1-1.5-1.1-1.5-.9-.6.1-.6.1-.6 1 .1 1.6 1 1.6 1 .9 1.6 2.5 1.1 3.1.8.1-.6.3-1.1.6-1.3-2.6-.3-5.4-1.3-5.4-5.8 0-1.3.5-2.4 1.2-3.2-.1-.3-.5-1.6.1-3.2 0 0 1-.3 3.3 1.2a11.5 11.5 0 0 1 6 0C17 4.8 18 5.1 18 5.1c.6 1.6.2 2.9.1 3.2.8.8 1.2 1.9 1.2 3.2 0 4.6-2.8 5.5-5.4 5.8.4.3.7.9.7 1.8v2.7c0 .3.2.7.8.6A10.9 10.9 0 0 0 23.5 12C23.5 5.6 18.4.5 12 .5z" fill="currentColor"/></svg>
@@ -55,6 +55,9 @@
         <nav class="site-nav">
           <a href="/blog/" class="nav-link nav-link--active">Blog</a>
           <a href="/projects/" class="nav-link">Projects</a>
+          <a href="/playbooks/" class="nav-link">Playbooks</a>
+          <a href="/case-studies/" class="nav-link">Case Studies</a>
+          <a href="/reading-tools/" class="nav-link">Reading &amp; Tools</a>
           <a href="/about/" class="nav-link">About</a>
         </nav>
       </header>
@@ -63,37 +66,48 @@
   <h1 class="page-title">Projects</h1>
   <p class="page-subtitle">Selected work, courses, and open resources.</p>
   <div class="page-body">
-    <div class="project" id="edgeprep">
-  <h3>EdgePrep</h3>
-  <p class="muted">Reusable data preparation patterns for compact ML pipelines.</p>
+    <div class="project" id="uav-mappo">
+  <h3>UAV Multi-Agent Reinforcement Learning (Formation Control)</h3>
+  <p class="muted">PyBullet-based research on decentralized formation control for quadrotors using shared-policy MAPPO.</p>
   <ul>
-    <li>Notebook-driven recipes for cleaning, validation, and feature checks.</li>
-    <li>Examples in Python with reproducible Make targets.</li>
-    <li>MIT licensed and ready for adaptation.</li>
+    <li>Multi-agent coordination, reward shaping, and sim-to-real constraints.</li>
+    <li>Structured experimentation with reproducible code and logs.</li>
+    <li>Focus on formation stability and shared-policy training.</li>
   </ul>
-  <p><a href="https://github.com/ememchijioke/edgeprep">Repository</a></p>
+  <p><a href="https://github.com/ememchijioke/uav-multi-agent-mappo">Repository</a></p>
 </div>
 
-<div class="project" id="reliable-ml">
-  <h3>Reliable ML in Production</h3>
-  <p class="muted">A hands-on workshop for teams deploying models in real products.</p>
+<div class="project" id="traceble">
+  <h3>TraceBLE — Indoor Localization with BLE</h3>
+  <p class="muted">Indoor-positioning system using BLE scanning, RSSI smoothing, filtering, and a lightweight Flask dashboard.</p>
   <ul>
-    <li>Evaluation playbook with real-world datasets.</li>
-    <li>Monitoring patterns for drift, feedback, and human-in-the-loop review.</li>
-    <li>Deployment labs using lightweight tooling your team can maintain.</li>
+    <li>Signal processing and filtering for reliable RSSI readings.</li>
+    <li>Practical system design with data collection pipelines.</li>
+    <li>Simple dashboard for monitoring indoor positions.</li>
   </ul>
-  <p><a href="/contact/">Invite me to your team</a></p>
+  <p><a href="https://github.com/ememchijioke/traceble-indoor-localization">Repository</a></p>
 </div>
 
-<div class="project" id="applied-ml-playbook">
-  <h3>Applied ML Playbook</h3>
-  <p class="muted">Guides for pragmatic ML: experimentation, baselines, and trustworthy releases.</p>
+<div class="project" id="automation-security">
+  <h3>Python Automation &amp; Cloud Security Exercises</h3>
+  <p class="muted">Hands-on scripts and utilities exploring automation, cloud workflows, and security concepts.</p>
   <ul>
-    <li>Articles and checklists you can plug into your workflow.</li>
-    <li>Templates for model cards, experiment logs, and project kickoffs.</li>
-    <li>Ongoing updates based on lessons from shipping features.</li>
+    <li>IAM basics, container setup, and CI/CD habits.</li>
+    <li>File processing, cloud automation, and security hygiene.</li>
+    <li>Practical Python engineering for small, reliable tools.</li>
   </ul>
-  <p><a href="/blog/">Read the series</a></p>
+  <p><a href="https://github.com/ememchijioke/python-automation-security-exercises">Repository</a></p>
+</div>
+
+<div class="project" id="carracing-rl">
+  <h3>Reinforcement Learning Experiments (CarRacing-v2)</h3>
+  <p class="muted">Learning-driven PPO/SAC experiments focused on training pipelines, logging, and evaluation.</p>
+  <ul>
+    <li>Reproducibility, environment handling, and training analysis.</li>
+    <li>Agent evaluation with clear metrics and structured logs.</li>
+    <li>Exploring hyperparameters and rollout strategies.</li>
+  </ul>
+  <p><a href="https://github.com/ememchijioke/carracing-rl-experiments">Repository</a></p>
 </div>
 
   </div>
