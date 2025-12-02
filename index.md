@@ -26,7 +26,7 @@ permalink: /
 
 <div class="content-group">
   <div class="section-title">Recent Notes and Blog Entries</div>
-  <div class="section-subtitle"><a href="{{ '/blog/' | relative_url }}">See Blog and Notes Archive for all entries</a></div>
+  <div class="section-subtitle"><a href="{{ '/blog/' | relative_url }}">See Blog and Notes Archive for all entries.</a></div>
   <section class="post-list">
     {%- for post in site.posts limit:6 -%}
       <article class="post-card">
