@@ -14,14 +14,14 @@
 <meta property="og:locale" content="en_US" />
 <meta name="description" content="Portfolio and writing on data science, engineering, and teaching." />
 <meta property="og:description" content="Portfolio and writing on data science, engineering, and teaching." />
-<link rel="canonical" href="http://localhost:4001/playbooks/" />
-<meta property="og:url" content="http://localhost:4001/playbooks/" />
+<link rel="canonical" href="http://localhost:4000/playbooks/" />
+<meta property="og:url" content="http://localhost:4000/playbooks/" />
 <meta property="og:site_name" content="Chijioke Emem" />
 <meta property="og:type" content="website" />
 <meta name="twitter:card" content="summary" />
 <meta property="twitter:title" content="Playbooks" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"WebPage","author":{"@type":"Person","name":"Chijioke Emem"},"description":"Portfolio and writing on data science, engineering, and teaching.","headline":"Playbooks","url":"http://localhost:4001/playbooks/"}</script>
+{"@context":"https://schema.org","@type":"WebPage","author":{"@type":"Person","name":"Chijioke Emem"},"description":"Portfolio and writing on data science, engineering, and teaching.","headline":"Playbooks","url":"http://localhost:4000/playbooks/"}</script>
 <!-- End Jekyll SEO tag -->
 </head>
   <body>
@@ -53,10 +53,9 @@
         </div>
 
         <nav class="site-nav">
-          <a href="/blog/" class="nav-link nav-link--active">Blog</a>
+          <a href="/blog/" class="nav-link">Blog</a>
           <a href="/projects/" class="nav-link">Projects</a>
-          <a href="/playbooks/" class="nav-link">Playbooks</a>
-          <a href="/case-studies/" class="nav-link">Case Studies</a>
+          <a href="/playbooks/" class="nav-link nav-link--active">Playbooks</a>
           <a href="/reading-tools/" class="nav-link">Reading &amp; Tools</a>
           <a href="/about/" class="nav-link">About</a>
         </nav>
@@ -64,39 +63,43 @@
       <main class="content">
         <article class="page">
   <h1 class="page-title">Playbooks</h1>
-  <p class="page-subtitle">Reusable checklists and templates you can adapt quickly.</p>
+  <p class="page-subtitle"></p>
   <div class="page-body">
-    <h3 id="agentic-rag-evaluation">Agentic RAG Evaluation</h3>
-<ul>
-  <li>Groundedness @K with source diversity and freshness checks.</li>
-  <li>Latency budget with per-step logging; adaptive depth when SLA is hit.</li>
-  <li>Safety guardrails: refusal quality, tool allow/deny lists, and PII leak tests.</li>
-  <li>Artifacts: red-team prompt set, slice config, latency budget template.</li>
-</ul>
+    <div class="content-group playbook-intro">
+  <p class="playbook-lede">
+    Short notes on how I currently approach technical work while learning and building. 
+  </p>
+</div>
 
-<h3 id="edge-llm-readiness">Edge LLM Readiness</h3>
-<ul>
-  <li>Quantization (4/8-bit) with pre/post accuracy and on-device latency.</li>
-  <li>Battery/thermal check (5–10 minute stress); throttle rules if temp &gt; 40°C.</li>
-  <li>Privacy-by-design: no raw logs off-device, hashed telemetry only.</li>
-  <li>Artifacts: edge test harness, rollout plan (hybrid routing), safety adapter baseline.</li>
-</ul>
+<div class="playbook-grid">
+  <section class="playbook-card">
+    <h2>Project Structure</h2>
+    <ul>
+      <li>Start with a clear problem and constraints.</li>
+      <li>Separate experiments from stable code.</li>
+      <li>Keep folders, configurations, and naming simple.</li>
+      <li>Document assumptions early.</li>
+    </ul>
+  </section>
 
-<h3 id="synthetic-data-without-self-deception">Synthetic Data Without Self-Deception</h3>
-<ul>
-  <li>Maintain ≥30–50% real data per category; measure lexical diversity.</li>
-  <li>Calibrate difficulty (easy/medium/hard) and validate 100 items with humans each sprint.</li>
-  <li>Separate reporting for real vs synthetic to avoid “green dashboards, broken product.”</li>
-  <li>Artifacts: perturbation scripts (negation/entity swaps), realism scoring rubric.</li>
-</ul>
+  <section class="playbook-card">
+    <h2>Experiments &amp; Evaluation</h2>
+    <ul>
+      <li>Fix seeds and log configurations.</li>
+      <li>Track failures, not just successes.</li>
+      <li>Prefer fewer, well-understood experiments.</li>
+    </ul>
+  </section>
 
-<h3 id="safety--policy-gate">Safety &amp; Policy Gate</h3>
-<ul>
-  <li>Red-team suites per category (PII, jailbreaks, tool abuse).</li>
-  <li>Refusal quality scoring (politeness, specificity, consistency).</li>
-  <li>Automated PII probes; output sanitization hooks.</li>
-  <li>Artifacts: YAML policy config, refusal rubric, tool allow/deny template.</li>
-</ul>
+  <section class="playbook-card">
+    <h2>Automation &amp; Security Mindset</h2>
+    <ul>
+      <li>Automate only after understanding the manual workflow.</li>
+      <li>Prefer small scripts over complex frameworks.</li>
+      <li>Be explicit about trust boundaries and data exposure.</li>
+    </ul>
+  </section>
+</div>
 
   </div>
 </article>

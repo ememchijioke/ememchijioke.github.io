@@ -13,8 +13,8 @@ permalink: /
         <span class="context-divider"></span>
         <span class="context-badge">● Open to collaborations</span>
       </div>
-      <p>I am currently pursuing graduate studies in Artificial Intelligence, Cybersecurity, and Autonomous Systems, with a growing interest in automation, security engineering, and practical machine learning. My work sits at the intersection of intelligent systems and real-world problem solving, where I focus on building clear, reliable, and well-structured solutions.</p>
-      <p>I build and evaluate ML features end-to-end, emphasizing responsible deployment, monitoring, and clear documentation. For my most up-to-date work, explore the links below.</p>
+      <p class="hero-paragraph">I am currently pursuing graduate studies in Artificial Intelligence, Cybersecurity, and Autonomous Systems, with a primary focus on automation-driven engineering and reliable system design. My work centers on building structured workflows for real-world systems, where intelligent decision-making must operate within practical constraints.</p>
+      <p class="hero-paragraph">Through academic and project work, I have explored multi-UAV coordination, applied reinforcement learning, and Python-based automation, alongside foundational topics in cloud and security engineering. I approach problems with an emphasis on clarity, reproducibility, and documentation, aiming to develop systems that remain understandable and maintainable as they grow in complexity. For my most up-to-date work, explore the links below.</p>
     </div>
     <div class="avatar">
       <img src="{{ '/assets/img/Profile Photo.jpg' | relative_url }}" alt="{{ site.author.name }}" />

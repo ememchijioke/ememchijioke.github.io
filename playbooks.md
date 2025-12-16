@@ -1,30 +1,42 @@
 ---
 layout: page
 title: "Playbooks"
-subtitle: "Reusable checklists and templates you can adapt quickly."
+subtitle: ""
 permalink: /playbooks/
 ---
 
-### Agentic RAG Evaluation
-- Groundedness @K with source diversity and freshness checks.
-- Latency budget with per-step logging; adaptive depth when SLA is hit.
-- Safety guardrails: refusal quality, tool allow/deny lists, and PII leak tests.
-- Artifacts: red-team prompt set, slice config, latency budget template.
+<div class="content-group playbook-intro">
+  <p class="playbook-lede">
+    Short notes on how I currently approach technical work while learning and building. 
+  </p>
+</div>
 
-### Edge LLM Readiness
-- Quantization (4/8-bit) with pre/post accuracy and on-device latency.
-- Battery/thermal check (5–10 minute stress); throttle rules if temp > 40°C.
-- Privacy-by-design: no raw logs off-device, hashed telemetry only.
-- Artifacts: edge test harness, rollout plan (hybrid routing), safety adapter baseline.
+<div class="playbook-grid">
+  <section class="playbook-card">
+    <h2>Project Structure</h2>
+    <ul>
+      <li>Start with a clear problem and constraints.</li>
+      <li>Separate experiments from stable code.</li>
+      <li>Keep folders, configurations, and naming simple.</li>
+      <li>Document assumptions early.</li>
+    </ul>
+  </section>
 
-### Synthetic Data Without Self-Deception
-- Maintain ≥30–50% real data per category; measure lexical diversity.
-- Calibrate difficulty (easy/medium/hard) and validate 100 items with humans each sprint.
-- Separate reporting for real vs synthetic to avoid “green dashboards, broken product.”
-- Artifacts: perturbation scripts (negation/entity swaps), realism scoring rubric.
+  <section class="playbook-card">
+    <h2>Experiments &amp; Evaluation</h2>
+    <ul>
+      <li>Fix seeds and log configurations.</li>
+      <li>Track failures, not just successes.</li>
+      <li>Prefer fewer, well-understood experiments.</li>
+    </ul>
+  </section>
 
-### Safety & Policy Gate
-- Red-team suites per category (PII, jailbreaks, tool abuse).
-- Refusal quality scoring (politeness, specificity, consistency).
-- Automated PII probes; output sanitization hooks.
-- Artifacts: YAML policy config, refusal rubric, tool allow/deny template.
+  <section class="playbook-card">
+    <h2>Automation &amp; Security Mindset</h2>
+    <ul>
+      <li>Automate only after understanding the manual workflow.</li>
+      <li>Prefer small scripts over complex frameworks.</li>
+      <li>Be explicit about trust boundaries and data exposure.</li>
+    </ul>
+  </section>
+</div>
