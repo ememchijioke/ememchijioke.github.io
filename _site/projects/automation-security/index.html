@@ -3,25 +3,25 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Case Studies | Chijioke Emem</title>
+    <title>Python Automation & Cloud Security Exercises | Chijioke Emem</title>
     <link rel="stylesheet" href="/assets/css/style.css" />
     <link rel="icon" type="image/svg+xml" href="/assets/img/favicon.svg" />
     <link rel="alternate" type="application/atom+xml" title="Chijioke Emem Feed" href="/feed.xml" /><!-- Begin Jekyll SEO tag v2.8.0 -->
-<title>Case Studies | Chijioke Emem</title>
+<title>Python Automation &amp; Cloud Security Exercises | Chijioke Emem</title>
 <meta name="generator" content="Jekyll v4.4.1" />
-<meta property="og:title" content="Case Studies" />
+<meta property="og:title" content="Python Automation &amp; Cloud Security Exercises" />
 <meta name="author" content="Chijioke Emem" />
 <meta property="og:locale" content="en_US" />
 <meta name="description" content="Portfolio and writing on data science, engineering, and teaching." />
 <meta property="og:description" content="Portfolio and writing on data science, engineering, and teaching." />
-<link rel="canonical" href="https://ememchijioke.com/case-studies/" />
-<meta property="og:url" content="https://ememchijioke.com/case-studies/" />
+<link rel="canonical" href="https://ememchijioke.com/projects/automation-security/" />
+<meta property="og:url" content="https://ememchijioke.com/projects/automation-security/" />
 <meta property="og:site_name" content="Chijioke Emem" />
 <meta property="og:type" content="website" />
 <meta name="twitter:card" content="summary" />
-<meta property="twitter:title" content="Case Studies" />
+<meta property="twitter:title" content="Python Automation &amp; Cloud Security Exercises" />
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"WebPage","author":{"@type":"Person","name":"Chijioke Emem"},"description":"Portfolio and writing on data science, engineering, and teaching.","headline":"Case Studies","url":"https://ememchijioke.com/case-studies/"}</script>
+{"@context":"https://schema.org","@type":"WebPage","author":{"@type":"Person","name":"Chijioke Emem"},"description":"Portfolio and writing on data science, engineering, and teaching.","headline":"Python Automation &amp; Cloud Security Exercises","url":"https://ememchijioke.com/projects/automation-security/"}</script>
 <!-- End Jekyll SEO tag -->
 </head>
   <body>
@@ -54,7 +54,7 @@
 
         <nav class="site-nav">
           <a href="/blog/" class="nav-link">Blog</a>
-          <a href="/projects/" class="nav-link">Projects</a>
+          <a href="/projects/" class="nav-link nav-link--active">Projects</a>
           <a href="/playbooks/" class="nav-link">Playbooks</a>
           <a href="/reading-tools/" class="nav-link">Reading &amp; Tools</a>
           <a href="/about/" class="nav-link">About</a>
@@ -62,31 +62,29 @@
       </header>
       <main class="content">
         <article class="page">
-  <h1 class="page-title">Case Studies</h1>
-  <p class="page-subtitle">Concise narratives: problem → approach → outcome → lessons.</p>
+  <h1 class="page-title">Python Automation & Cloud Security Exercises</h1>
   <div class="page-body">
-    <h3 id="agentic-rag-for-support-triage">Agentic RAG for Support Triage</h3>
+    <p>Hands-on scripts and utilities that explore automation patterns, cloud workflows, and security hygiene with an emphasis on reliability and clear configuration.</p>
+
+<h3 id="highlights">Highlights</h3>
 <ul>
-  <li><strong>Problem:</strong> High-volume support tickets with inconsistent triage and hallucinated answers from a base chatbot.</li>
-  <li><strong>Approach:</strong> Added retrieval with source diversity, tool-based form filling, and a policy layer for refusals. Evaluated groundedness @K, source entropy, and latency (P50/P95).</li>
-  <li><strong>Outcome:</strong> 27% reduction in escalation volume; P95 latency held at 2.8s with adaptive depth.</li>
-  <li><strong>Lessons:</strong> Source diversity mattered as much as K; policy checks caught most unsafe tool calls.</li>
+  <li>IAM basics, container setup, CI/CD hygiene, and operational checklists.</li>
+  <li>File processing tasks, cloud automation helpers, and structured logging.</li>
+  <li>Small, dependable Python tools with argparse-based CLIs and sane defaults.</li>
 </ul>
 
-<h3 id="edge-llm-for-private-analytics">Edge LLM for Private Analytics</h3>
+<h3 id="approach">Approach</h3>
 <ul>
-  <li><strong>Problem:</strong> Privacy-sensitive field data (limited connectivity) required on-device insights.</li>
-  <li><strong>Approach:</strong> Deployed an 8B quantized model with a safety adapter on gateways; hybrid routing to cloud for long-form tasks; power/thermal testing.</li>
-  <li><strong>Outcome:</strong> Sub-200ms local responses; zero raw logs leaving devices; clear rollback path for models.</li>
-  <li><strong>Lessons:</strong> Quantization tests per hardware target avoided regressions; hashed telemetry was enough for monitoring.</li>
+  <li><strong>Automation patterns</strong>: Idempotent scripts for provisioning, cleanup, and reporting; make targets for repeatable workflows.</li>
+  <li><strong>Security posture</strong>: Secrets handling patterns, minimal permissions for cloud tasks, and logging that avoids sensitive data.</li>
+  <li><strong>Testing &amp; checks</strong>: Linting and quick sanity tests; dry-run modes to validate parameters before running.</li>
+  <li><strong>Documentation</strong>: Inline examples and usage notes to keep scripts discoverable.</li>
 </ul>
 
-<h3 id="synthetic-regression-for-llm-safety">Synthetic Regression for LLM Safety</h3>
+<h3 id="artifacts">Artifacts</h3>
 <ul>
-  <li><strong>Problem:</strong> Slow human-heavy regression before weekly model updates.</li>
-  <li><strong>Approach:</strong> Built a mixed real/synthetic test suite with adversarial perturbations and category slices; tracked refusal quality and PII leak rate.</li>
-  <li><strong>Outcome:</strong> Regression time dropped from days to hours; caught tool-abuse regressions before rollout.</li>
-  <li><strong>Lessons:</strong> Kept ≥40% real data to avoid drift; realism scoring prevented overfitting to templates.</li>
+  <li>Code and exercises: <a href="https://github.com/ememchijioke/python-automation-security-exercises">github.com/ememchijioke/python-automation-security-exercises</a></li>
+  <li>Example configs and Makefiles for repeatable runs.</li>
 </ul>
 
   </div>
