@@ -1,24 +1,25 @@
-## Personal site built with Jekyll
+# Emem Chijioke
 
-This repository contains the source for **ememchijioke.com**, a Jekyll site inspired by Sebastian Raschka’s layout. It includes pages for the home/portfolio, projects, CV, contact, and a blog with sample posts.
+A minimal personal homepage built with plain HTML and CSS.
 
-### Prerequisites
-- Ruby (2.7+ recommended)
-- Bundler (`gem install bundler`)
+## Files
 
-### Run locally
-```bash
-bundle install
-bundle exec jekyll serve
+```text
+index.html
+style.css
+public/images/profile.jpg
 ```
-Then visit `http://localhost:4000`.
 
-### Deploying to GitHub Pages
-- Push this repository to GitHub.
-- In repository Settings → Pages, select the default branch and `/ (root)` as the source.
-- GitHub Pages will build with the included `jekyll` and plugins (`jekyll-feed`, `jekyll-seo-tag`).
+## Preview Locally
 
-### Customizing
-- Update `_config.yml` with your name, links, and metadata.
-- Replace placeholder links (`your-github`, `your-linkedin`, newsletter URL) and adjust colors in `assets/css/style.css` if desired.
-- Add or edit posts in `_posts/` using the `YYYY-MM-DD-title.md` convention.
+Open `index.html` directly in a browser, or run:
+
+```bash
+python3 -m http.server 8000
+```
+
+Then visit `http://localhost:8000`.
+
+## Deploy
+
+This is a static site. Push the repository and deploy the root directory with any static host, including GitHub Pages, Netlify, Vercel, or Cloudflare Pages.
