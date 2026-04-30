@@ -4,6 +4,18 @@
   --text: #111111;
   --muted: #555555;
   --link: #0000ee;
+  --bar: #b7b7b7;
+  --venue: #008000;
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --background: #111111;
+  --text: #eeeeee;
+  --muted: #aaaaaa;
+  --link: #8ab4ff;
+  --bar: #666666;
+  --venue: #7ee787;
 }
 
 * {
@@ -24,6 +36,50 @@ main {
   max-width: 680px;
   margin: 0 auto;
   padding: 48px 24px;
+}
+
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 36px;
+  font-size: 15px;
+}
+
+.wordmark {
+  color: var(--text);
+  font-family: ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", monospace;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0;
+  text-decoration: none;
+}
+
+.wordmark:hover {
+  color: var(--text);
+  text-decoration: none;
+}
+
+nav {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.theme-toggle {
+  border: 0;
+  padding: 0;
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  font: inherit;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.theme-toggle:hover {
+  color: var(--text);
 }
 
 .intro {
@@ -82,7 +138,7 @@ li {
 .publication {
   margin-bottom: 10px;
   padding-left: 9px;
-  border-left: 3px solid #b7b7b7;
+  border-left: 3px solid var(--bar);
 }
 
 .entry p,
@@ -96,7 +152,16 @@ li {
 }
 
 .venue {
-  color: #008000;
+  color: var(--venue);
+}
+
+.location {
+  color: var(--muted);
+  margin-top: -10px;
+}
+
+.music span {
+  color: var(--muted);
 }
 
 a {
@@ -121,6 +186,14 @@ footer p {
 @media (max-width: 560px) {
   main {
     padding: 36px 20px;
+  }
+
+  .topbar {
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 34px;
   }
 
   .portrait {

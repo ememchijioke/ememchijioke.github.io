@@ -8,19 +8,32 @@
       name="description"
       content="Emem Chijioke is an engineer and graduate student working on autonomous and secure systems."
     />
+    <link rel="icon" type="image/svg+xml" href="public/images/logo.svg" />
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
     <main>
+      <header class="topbar">
+        <a class="wordmark" href="/" aria-label="Home">emem / systems</a>
+        <nav aria-label="Primary navigation">
+          <a href="#work">work</a>
+          <a href="#writing">writing</a>
+          <a href="#publications">publications</a>
+          <a href="#contact">contact</a>
+        </nav>
+        <button class="theme-toggle" type="button" aria-label="Toggle theme">
+          night
+        </button>
+      </header>
+
       <header class="intro">
         <img
           class="portrait"
           src="public/images/profile.jpg"
           alt="Portrait of Emem Chijioke"
         />
-
         <h1>Emem Chijioke</h1>
-
+        <p class="location">Klagenfurt, Austria</p>
         <p>
           I’m an <a href="#">engineer and graduate student</a> working on
           autonomous and secure systems. I study
@@ -36,16 +49,17 @@
           and remain reliable under real-world constraints.
         </p>
 
-        <p>
-          I last listened to
+        <p class="music">
+          <span>last listened:</span>
           <a href="https://open.spotify.com/album/0FvrvaVsWQ7kTdGzipW6HV"
             >Nine Types of Light</a
           >
           by TV On The Radio.
         </p>
+
       </header>
 
-      <section>
+      <section id="work">
         <p>work</p>
         <div class="entry">
           <p>
@@ -67,7 +81,7 @@
         </div>
       </section>
 
-      <section>
+      <section id="writing">
         <p>writing</p>
         <div class="entry">
           <p>
@@ -89,7 +103,8 @@
         </div>
       </section>
 
-      <footer>
+      <footer id="contact">
+        <p>elsewhere</p>
         <p class="contact-links">
           GitHub:
           <a href="https://github.com/ememchijioke">github.com/ememchijioke</a
@@ -103,7 +118,7 @@
         </p>
       </footer>
 
-      <section>
+      <section id="publications">
         <h2 class="publications-title">publications</h2>
 
         <div class="publication">
@@ -119,5 +134,21 @@
         </div>
       </section>
     </main>
+    <script>
+      const button = document.querySelector(".theme-toggle");
+      const savedTheme = localStorage.getItem("theme");
+
+      if (savedTheme === "dark") {
+        document.documentElement.dataset.theme = "dark";
+        button.textContent = "day";
+      }
+
+      button.addEventListener("click", () => {
+        const isDark = document.documentElement.dataset.theme === "dark";
+        document.documentElement.dataset.theme = isDark ? "" : "dark";
+        localStorage.setItem("theme", isDark ? "light" : "dark");
+        button.textContent = isDark ? "night" : "day";
+      });
+    </script>
   </body>
 </html>
