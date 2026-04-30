@@ -9,21 +9,21 @@
       content="Emem Chijioke is an engineer and graduate student working on autonomous and secure systems."
     />
     <link rel="icon" type="image/svg+xml" href="public/images/logo.svg" />
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="style.css?v=2" />
   </head>
   <body>
     <main>
       <header class="topbar">
-        <a class="wordmark" href="/" aria-label="Home">emem / systems</a>
         <nav aria-label="Primary navigation">
+          <a class="wordmark" href="/" aria-label="Home">emem / systems</a>
           <a href="#work">work</a>
           <a href="#writing">writing</a>
           <a href="#publications">publications</a>
           <a href="#contact">contact</a>
+          <button class="theme-toggle" type="button" aria-label="Toggle theme">
+            night
+          </button>
         </nav>
-        <button class="theme-toggle" type="button" aria-label="Toggle theme">
-          night
-        </button>
       </header>
 
       <header class="intro">
@@ -32,8 +32,10 @@
           src="public/images/profile.jpg"
           alt="Portrait of Emem Chijioke"
         />
-        <h1>Emem Chijioke</h1>
-        <p class="location">Klagenfurt, Austria</p>
+        <div class="identity">
+          <h1>Emem Chijioke</h1>
+          <p class="location">Klagenfurt, Austria</p>
+        </div>
         <p>
           I’m an <a href="#">engineer and graduate student</a> working on
           autonomous and secure systems. I study

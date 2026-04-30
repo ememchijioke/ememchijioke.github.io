@@ -39,10 +39,6 @@ main {
 }
 
 .topbar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
   margin-bottom: 36px;
   font-size: 15px;
 }
@@ -63,7 +59,8 @@ main {
 
 nav {
   display: flex;
-  gap: 12px;
+  align-items: baseline;
+  gap: 11px;
   flex-wrap: wrap;
 }
 
@@ -97,11 +94,15 @@ nav {
 }
 
 h1 {
-  margin: 0 0 18px;
+  margin: 0;
   font-size: 30px;
   line-height: 1.2;
   font-weight: 700;
   letter-spacing: 0;
+}
+
+.identity {
+  margin-bottom: 18px;
 }
 
 h2 {
@@ -157,7 +158,7 @@ li {
 
 .location {
   color: var(--muted);
-  margin-top: -10px;
+  margin: 2px 0 0;
 }
 
 .music span {
@@ -189,10 +190,6 @@ footer p {
   }
 
   .topbar {
-    align-items: flex-start;
-    justify-content: flex-start;
-    flex-direction: column;
-    gap: 8px;
     margin-bottom: 34px;
   }
 
