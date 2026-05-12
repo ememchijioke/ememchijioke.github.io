@@ -11,7 +11,7 @@
     <link rel="icon" type="image/svg+xml" href="public/images/logo.svg" />
     <link rel="canonical" href="https://ememchijioke.com/" />
     <meta name="robots" content="index, follow" />
-    <link rel="stylesheet" href="style.css?v=2" />
+    <link rel="stylesheet" href="style.css?v=5" />
 
     <meta property="og:title" content="Emem Chijioke | AI, Cybersecurity & Autonomous Systems">
     <meta property="og:description" content="Graduate student working on autonomous and secure systems, UAV coordination, reinforcement learning, cybersecurity, and automation.">
@@ -54,8 +54,6 @@
     }
   }
 </script>
-  </head>
-
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-N01D7SMVGG"></script>
 <script>
@@ -65,6 +63,7 @@
 
   gtag('config', 'G-N01D7SMVGG');
 </script>
+  </head>
 
   <body>
     <main>
@@ -118,46 +117,88 @@
 
       <section id="work">
         <p>work</p>
-        <div class="entry">
-          <p>
-            <a href="#">MARL-Based UAV Formation Control</a>
-            <span class="venue">autonomy</span>
-          </p>
-        </div>
-        <div class="entry">
-          <p>
-            <a href="#">TraceBLE Indoor Navigation</a>
-            <span class="venue">localization</span>
-          </p>
-        </div>
-        <div class="entry">
-          <p>
-            <a href="#">Security Automation &amp; Cloud Learning</a>
-            <span class="venue">security</span>
-          </p>
+        <div class="project-list">
+          <article class="project-item">
+            <img
+              src="public/images/projects/marl-uav-formation.png"
+              alt="Flying robot used as a visual thumbnail for the MARL UAV formation project"
+              width="80"
+              height="80"
+            />
+            <div class="project-copy">
+              <h3>
+                <a href="https://github.com/ememchijioke/marl-uav-formation"
+                  >marl-uav-formation</a
+                >
+              </h3>
+              <p>
+                Multi-agent UAV formation control with PyBullet, PPO/MAPPO
+                training, and 2D/3D evaluation playback.
+              </p>
+              <p class="project-meta">autonomy · reinforcement learning</p>
+            </div>
+          </article>
+
+          <article class="project-item">
+            <img
+              src="public/images/projects/traceble-indoor-positioning.webp"
+              alt="Phone showing an indoor navigation map"
+              width="80"
+              height="80"
+            />
+            <div class="project-copy">
+              <h3>
+                <a href="https://github.com/ememchijioke/TraceBLE">TraceBLE</a>
+              </h3>
+              <p>
+                BLE indoor positioning with ESP32 anchors, RSSI calibration,
+                Kalman filtering, and a live Flask dashboard.
+              </p>
+              <p class="project-meta">localization · embedded systems</p>
+            </div>
+          </article>
+
+          <article class="project-item">
+            <img
+              src="public/images/projects/swarm-foraging-simulation.png"
+              alt="Grid-based swarm foraging simulation with colored agent trails"
+              width="80"
+              height="80"
+            />
+            <div class="project-copy">
+              <h3>
+                <a href="https://github.com/ememchijioke/swarm_foraging"
+                  >swarm_foraging</a
+                >
+              </h3>
+              <p>
+                Agent-based swarm simulation using local perception, pheromone
+                trails, energy limits, and heat constraints.
+              </p>
+              <p class="project-meta">simulation · swarm intelligence</p>
+            </div>
+          </article>
         </div>
       </section>
 
       <section id="writing">
         <p>writing</p>
-        <div class="entry">
-          <p>
-            <a href="#">Lessons from Building Multi-UAV Systems</a>
-            <span class="venue">draft</span>
-          </p>
-        </div>
-        <div class="entry">
-          <p>
-            <a href="#">Why Autonomous Systems Need Security Thinking</a>
-            <span class="venue">draft</span>
-          </p>
-        </div>
-        <div class="entry">
-          <p>
-            <a href="#">Building BLE Navigation with Low-Cost Hardware</a>
-            <span class="venue">draft</span>
-          </p>
-        </div>
+        <ol class="archive-list">
+          <li>
+            <time datetime="2026-05-13">13 May 2026</time>
+            <a href="posts/what-actually-happens-during-marl-training.html"
+              >What Actually Happens During MARL Training?</a
+            >
+          </li>
+          <li>
+            <time>Draft</time>
+            <span>Why Autonomous Systems Need Security Thinking</span>
+          </li>
+          <li>
+            <time>Draft</time>
+            <span>Building BLE Navigation with Low-Cost Hardware</span>
+          </li>
+        </ol>
       </section>
 
       <footer id="contact">
@@ -176,19 +217,19 @@
       </footer>
 
       <section id="publications">
-        <h2 class="publications-title">publications</h2>
-
-        <div class="publication">
-          <p>
+        <p>publications</p>
+        <ol class="archive-list">
+          <li>
+            <time datetime="2022">2022</time>
             <a href="https://ieeexplore.ieee.org/document/9803178"
               >IoT-Based Wearable Human Protection System</a
             >
-            <span class="venue">NIGERCON 2022</span>
-          </p>
-          <p class="meta">
-            Chijioke Emem, Olugbenga Kayode Ogidan, Momoh-Jimoh Salami
-          </p>
-        </div>
+            <span class="archive-note">NIGERCON</span>
+          </li>
+          <li class="archive-detail">
+            <span>Chijioke Emem, Olugbenga Kayode Ogidan, Momoh-Jimoh Salami</span>
+          </li>
+        </ol>
       </section>
     </main>
     <script>

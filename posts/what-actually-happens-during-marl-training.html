@@ -1,0 +1,630 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>What Actually Happens During MARL Training? | Emem Chijioke</title>
+    <meta
+      name="description"
+      content="A clear look inside the instability of multi-agent reinforcement learning, from non-stationarity and CTDE to reward design, credit assignment, and Sim2Real limits."
+    />
+    <link rel="icon" type="image/svg+xml" href="../public/images/logo.svg" />
+    <link
+      rel="canonical"
+      href="https://ememchijioke.com/posts/what-actually-happens-during-marl-training.html"
+    />
+    <meta name="robots" content="index, follow" />
+    <link rel="stylesheet" href="../style.css?v=5" />
+
+    <meta
+      property="og:title"
+      content="What Actually Happens During MARL Training?"
+    />
+    <meta
+      property="og:description"
+      content="Inside the instability of multi-agent learning, UAV formation control, reward design, CTDE, and the practical limits of simulation."
+    />
+    <meta property="og:type" content="article" />
+    <meta
+      property="og:url"
+      content="https://ememchijioke.com/posts/what-actually-happens-during-marl-training.html"
+    />
+    <meta
+      property="og:image"
+      content="https://ememchijioke.com/public/images/posts/marl-training/marl-training-drone.png"
+    />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:title"
+      content="What Actually Happens During MARL Training?"
+    />
+    <meta
+      name="twitter:description"
+      content="Inside the instability of multi-agent learning and what it means for UAV formation control."
+    />
+    <meta
+      name="twitter:image"
+      content="https://ememchijioke.com/public/images/posts/marl-training/marl-training-drone.png"
+    />
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "headline": "What Actually Happens During MARL Training?",
+        "description": "A clear look inside the instability of multi-agent reinforcement learning, from non-stationarity and CTDE to reward design, credit assignment, and Sim2Real limits.",
+        "author": {
+          "@type": "Person",
+          "name": "Emem Chijioke",
+          "url": "https://ememchijioke.com/"
+        },
+        "publisher": {
+          "@type": "Person",
+          "name": "Emem Chijioke"
+        },
+        "datePublished": "2026-05-13",
+        "dateModified": "2026-05-13",
+        "mainEntityOfPage": "https://ememchijioke.com/posts/what-actually-happens-during-marl-training.html",
+        "image": "https://ememchijioke.com/public/images/posts/marl-training/marl-training-drone.png"
+      }
+    </script>
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-N01D7SMVGG"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-N01D7SMVGG');
+    </script>
+  </head>
+  <body class="article-page">
+    <main>
+      <header class="topbar">
+        <nav aria-label="Primary navigation">
+          <a class="wordmark" href="../" aria-label="Home">emem / systems</a>
+          <a href="../#work">work</a>
+          <a href="../#writing">writing</a>
+          <a href="../#publications">publications</a>
+          <a href="../#contact">contact</a>
+          <button class="theme-toggle" type="button" aria-label="Toggle theme">
+            night
+          </button>
+        </nav>
+      </header>
+
+      <article class="post">
+        <header class="post-header">
+          <h1>What Actually Happens During MARL Training?</h1>
+          <p class="post-subtitle">Inside the Instability of Multi-Agent Learning</p>
+          <p class="post-meta">12 min read</p>
+        </header>
+
+        <figure class="post-figure is-hero">
+          <img
+            src="../public/images/posts/marl-training/marl-training-drone.png"
+            alt="A drone-like flying robot with wide translucent wings"
+          />
+          <figcaption>Image by author.</figcaption>
+        </figure>
+
+        <div class="post-body">
+          <p>
+            For many people, Multi-Agent Reinforcement Learning (MARL) is first
+            encountered through impressive demonstrations: drone swarms flying in
+            formation, warehouse robots moving together, autonomous vehicles
+            negotiating intersections, or simulated agents cooperating inside
+            complex environments.
+          </p>
+
+          <p>
+            From the outside, these systems can look almost natural. The agents
+            appear coordinated, as if they somehow understand teamwork. But that
+            is not what the training process feels like.
+          </p>
+
+          <p>
+            Behind every stable formation is usually a long period of unstable
+            learning, failed rollouts, reward redesign, collapsed policies,
+            strange behaviours, and repeated debugging. A swarm that looks smooth
+            in a final video may have spent most of its training life doing the
+            opposite: drifting apart, colliding, freezing, oscillating, or
+            learning behaviours that technically improve reward but make no real
+            engineering sense.
+          </p>
+
+          <p>
+            That is what makes MARL difficult. It is not simply reinforcement
+            learning with more agents. It is a learning problem in which every
+            agent adapts while the others do as well, meaning the environment is
+            no longer fixed. The target keeps moving.
+          </p>
+
+          <p>
+            In single-agent reinforcement learning, one agent learns by
+            interacting with an environment that is assumed to remain relatively
+            consistent. The agent explores actions, receives rewards, and
+            gradually improves its behaviour.
+          </p>
+
+          <p>
+            In MARL, that assumption breaks very quickly. Every agent is updating
+            its policy. Every update changes the behaviour seen by the other
+            agents. So the system is not only learning inside an environment; it
+            is also changing the environment through learning. This is where
+            MARL becomes an engineering problem, not just an algorithmic one.
+          </p>
+
+          <blockquote>
+            <p>
+              The central question is no longer only: how do we maximise reward?
+              It becomes: how do we stabilise learning when every learner keeps
+              changing the conditions for the others?
+            </p>
+          </blockquote>
+
+          <div class="post-break" aria-hidden="true">...</div>
+
+          <h2>The Problem of a Moving Environment</h2>
+
+          <p>
+            The first major challenge in MARL is non-stationarity. In
+            single-agent RL, the agent can gradually learn because the
+            relationship between states, actions, and outcomes is stable enough
+            to approximate. The environment may be complex, but it is not usually
+            learning against or alongside the agent.
+          </p>
+
+          <p>
+            In MARL, the environment becomes a moving target. In UAV formation
+            control, imagine one drone discovers a slightly better way to move
+            toward the target. That small improvement changes spacing, velocity
+            relationships, and the relative observations of the other drones.
+            Now the neighbouring agents are no longer responding to the same
+            situation they saw before. Their learning problem has changed too.
+            Then they adapt. Their adaptation changes the environment again. This
+            feedback loop continues throughout training.
+          </p>
+
+          <p>
+            In my own UAV formation experiments, this was one of the first
+            things that became obvious. A formation could look stable for several
+            episodes, then suddenly collapse without any obvious change in the
+            code. One or two agents would adopt a slightly different movement
+            pattern, and the rest of the group would fail to adjust quickly
+            enough.
+            The strange part is that the individual agents were not always
+            wrong. Sometimes each agent followed a behaviour that made sense
+            locally, but together the swarm became unstable.
+          </p>
+
+          <blockquote>
+            <p>
+              Individual improvement does not automatically produce collective
+              stability.
+            </p>
+          </blockquote>
+
+          <p>
+            A drone can improve its approach to the goal while still worsening
+            the formation. Another drone can become better at avoiding collisions
+            and still make the group too conservative. One agent can stabilise
+            itself while destabilising the whole system.
+          </p>
+
+          <p>
+            This is why MARL training often does not improve smoothly. Sometimes
+            reward improves while formation error gets worse. Sometimes
+            collisions are reduced, but the agents become too cautious. Sometimes
+            the swarm suddenly looks coordinated, only to collapse again a few
+            training runs later.
+            This is not always a sign that the implementation is broken. In many
+            cases, it is the nature of the learning problem itself.
+          </p>
+
+          <h2>Centralised Training and Decentralised Execution</h2>
+
+          <figure class="post-figure is-wide">
+            <img
+              src="../public/images/posts/marl-training/ctde-centralized-training-decentralized-execution.png"
+              alt="Diagram comparing centralised training and decentralised execution for drone agents"
+            />
+            <figcaption>Image by author.</figcaption>
+          </figure>
+
+          <p>
+            One of the most important ideas used to manage this instability is
+            Centralised Training and Decentralised Execution, usually called
+            CTDE.
+          </p>
+
+          <p>
+            The idea is simple but powerful: during training, the system is
+            allowed to use more information than each individual agent will have
+            during deployment. During execution, each agent must act using only
+            its own local observations.
+          </p>
+
+          <p>
+            This distinction matters a lot for robotics. A real UAV cannot
+            always depend on perfect global information. It may only observe
+            nearby agents, its own position estimate, velocity, distance to a
+            target, obstacle information, or limited communication from
+            neighbours. In real systems, there are delays, sensor noise,
+            localisation errors, and communication limits. A policy that only
+            works because every drone has perfect global knowledge may look good
+            in simulation but fail in deployment.
+          </p>
+
+          <p>
+            CTDE tries to solve part of this problem. The actor remains
+            decentralised, meaning each agent learns which action to take based
+            on its local observations. The critic is centralised during training,
+            allowing it to observe the broader system state and help evaluate
+            whether an action was useful to the team as a whole.
+          </p>
+
+          <blockquote>
+            <p>
+              The actor asks: what should this drone do next based on what it can
+              see? The critic asks: did this action help the whole swarm?
+            </p>
+          </blockquote>
+
+          <p>
+            In my project, this distinction became more than a theoretical
+            concept. For UAV formation control, local observations are necessary
+            because the final system should be compatible with real drone
+            deployment. But training only on local signals can be unstable, since
+            one drone may not understand how its movement affects the entire
+            formation.
+          </p>
+
+          <p>
+            Each agent policy uses its own observation, while the value function
+            can evaluate the broader system during training.
+          </p>
+
+          <div class="post-formula" aria-label="Policy and value function notation">
+            <span>&pi;<sub>i</sub>(a<sub>i</sub> | o<sub>i</sub>),</span>
+            <span>V(s, o<sub>1</sub>, ..., o<sub>n</sub>)</span>
+          </div>
+
+          <p>
+            This is one reason algorithms like MAPPO are widely used in
+            cooperative MARL. They provide a practical way to train
+            decentralised agents with centralised guidance.
+          </p>
+
+          <p>
+            But CTDE does not magically solve MARL. It helps stabilise learning,
+            but the hard problems remain: reward design, credit assignment,
+            exploration, coordination collapse, and the gap between simulation
+            and real hardware.
+          </p>
+
+          <h2>The Credit Assignment Problem</h2>
+
+          <p>
+            Even when the system receives a reward, one difficult question
+            remains: who actually deserves credit? Suppose a group of UAVs
+            reaches the target while maintaining formation and avoiding
+            collision. The system receives a good reward. But what caused the
+            success? Was it the lead drone choosing a stable path, the rear drone
+            correcting spacing, one side drone preventing the shape from
+            drifting, or the whole group adapting together? The answer is not
+            always obvious.
+          </p>
+
+          <p>
+            This becomes even harder when the system fails. If the formation
+            collapses, which agent caused it? Was one drone too aggressive? Was
+            another one too slow? Was the reward badly shaped? Was the policy
+            update too large? Was the environment too difficult too early?
+          </p>
+
+          <p>
+            In my own training runs, the reward curve alone was not enough to
+            explain what was happening. Sometimes the total reward looked like it
+            was improving, but when I watched the playback, the behaviour was
+            clearly not good. The drones might move toward the target but lose
+            formation, or they might stay close together but refuse to move
+            properly.
+          </p>
+
+          <p>
+            This is where I learned that MARL evaluation cannot depend only on
+            reward. For formation control, I had to think in terms of separate
+            metrics: distance to target, formation error, inter-agent spacing,
+            collision count, success rate, smoothness of movement, and whether
+            the final behaviour actually makes sense visually.
+          </p>
+
+          <blockquote>
+            <p>Reward is useful, but reward can also lie.</p>
+          </blockquote>
+
+          <p>
+            A reward function may say the agent is improving while the actual
+            behaviour is not deployable. That is why reward design is one of the
+            most important parts of MARL engineering. A typical
+            formation-control reward may look like this:
+          </p>
+
+          <div class="post-formula" aria-label="Formation-control reward equation">
+            R = w<sub>g</sub>R<sub>goal</sub>
+            + w<sub>f</sub>R<sub>formation</sub>
+            - w<sub>c</sub>R<sub>collision</sub>
+            - w<sub>e</sub>R<sub>energy</sub>
+          </div>
+
+          <p>
+            In formation control, the system has to balance several objectives at
+            the same time: reaching the goal, maintaining formation, avoiding
+            collisions, minimising unnecessary movement, producing smooth
+            trajectories, and staying stable.
+          </p>
+
+          <p>
+            The problem is that these objectives often fight each other. If the
+            goal reward is too strong, the drones may rush toward the target and
+            destroy the formation. If the formation reward is too strong, they
+            may stay together but move poorly. If the collision penalty is too
+            strong, they may become too cautious or freeze. If the energy penalty
+            is too high, they may avoid moving rather than solving the task.
+          </p>
+
+          <p>
+            In my case, the collision and formation terms caused the most
+            headaches. Collision penalties were necessary because unsafe
+            behaviour could not be tolerated, but making them too aggressive
+            created another problem: the drones became afraid to move.
+          </p>
+
+          <p>
+            Formation rewards also looked simple on paper, but tuning them was
+            difficult because a tight formation can easily become too rigid. The
+            system needed enough pressure to preserve shape, but not so much that
+            the agents lost the ability to adapt.
+          </p>
+
+          <p>
+            This is why MARL is not only about choosing the right algorithm. A
+            lot of the real work is in shaping the learning environment so that
+            the right behaviour becomes easier to discover. The algorithm
+            matters, but the reward structure, curriculum, environment design,
+            and evaluation metrics matter just as much.
+          </p>
+
+          <h2>When Learning Starts to Look Like Coordination</h2>
+
+          <p>
+            One of the most interesting parts of MARL is that coordination can
+            emerge without being manually programmed.
+          </p>
+
+          <p>
+            The agents are not explicitly told every detail of how to cooperate.
+            They are not given a fixed script that says which agent should move
+            where, when it should slow down, or exactly how it should adjust when
+            another agent drifts. Instead, the system learns through repeated
+            interaction.
+          </p>
+
+          <p>
+            At the beginning, the behaviour is usually messy. The drones move
+            randomly, drift apart, collide, overshoot, fail to maintain spacing,
+            or produce the strange behaviour where one agent appears active while
+            the others do almost nothing.
+          </p>
+
+          <p>
+            Then, after enough training and enough reward correction, small
+            patterns begin to appear. The agents start moving less randomly.
+            Spacing becomes more consistent. Collisions reduce. The group begins
+            to respond more predictably. Eventually, something that appears to be
+            coordination starts to emerge.
+          </p>
+
+          <p>
+            But this also comes with a warning: emergent behaviour is not
+            automatically good behaviour.
+          </p>
+
+          <p>
+            Agents can discover bad shortcuts. They can exploit reward loopholes,
+            learn unstable coordination, or produce behaviours that look
+            successful numerically but are not safe or useful in the real world.
+          </p>
+
+          <p>
+            This is why watching the playback matters. Logs are not enough.
+            Reward curves are not enough. You have to observe what the agents are
+            actually doing.
+          </p>
+
+          <p>
+            In my case, many important problems only became obvious when I
+            watched the UAVs move. The numbers could suggest progress, but the
+            visual behaviour revealed whether the swarm was genuinely learning
+            coordination or only exploiting the reward function.
+          </p>
+
+          <figure class="post-figure is-comic">
+            <img
+              src="../public/images/posts/marl-training/marl-training-coordination-comic.png"
+              alt="Comic of unhappy drones in chairs speaking to a robot therapist about drifting out of formation"
+            />
+            <figcaption>Image by author.</figcaption>
+          </figure>
+
+          <h2>Simulation, Reality, and Practical Limits</h2>
+
+          <p>
+            Simulation makes MARL possible, but simulation is not reality. A
+            policy can perform well in PyBullet, Gazebo, or another simulator
+            and still fail when moved closer to real hardware. This is the
+            Sim2Real gap.
+          </p>
+
+          <p>
+            For UAVs, the gap is especially serious because flight systems are
+            sensitive. Small errors can become large problems quickly. Real
+            drones deal with sensor noise, actuator limits, communication delays,
+            localisation errors, battery differences, airflow disturbances, and
+            imperfect control loops.
+          </p>
+
+          <p>
+            A policy that looks smooth in simulation may behave differently when
+            deployed on real Crazyflies or tested through a more realistic
+            robotics stack. This is why MARL for UAVs cannot be treated as a pure
+            machine learning problem.
+            The learning algorithm is only one layer. Below it, there is control,
+            localisation, hardware timing, safety, communication, and system
+            integration.
+          </p>
+
+          <p>
+            This is one of the reasons my project direction has to be careful.
+            The aim is not only to show a nice swarm video. The deeper question
+            is whether a MARL-based formation-control policy can be trained to
+            respect the constraints of real UAV deployment.
+          </p>
+
+          <p>
+            That means local observations matter. Formation metrics matter.
+            Obstacle avoidance matters. Control stability matters. Sim2Real
+            evaluation matters. Most importantly, the final behaviour has to be
+            something that could realistically move toward hardware validation.
+          </p>
+
+          <h2>What Training Actually Feels Like</h2>
+
+          <p>
+            The clear explanation of MARL is this: multiple agents learn policies
+            through interaction and optimise a shared or individual reward
+            function. But the practical experience is different.
+          </p>
+
+          <p>
+            Training feels more like a cycle. You define the environment, design
+            the observation space, choose the action space, write the reward
+            function, and start training. Then the agents fail in a way you did
+            not expect. You inspect the logs, watch the playback, and realise
+            that the reward is encouraging the wrong behaviour.
+          </p>
+
+          <p>
+            You adjust the reward, train again, see a small improvement, then
+            watch the system collapse in another way. Then you add curriculum.
+            You tune hyperparameters. You reduce one instability and expose
+            another. You test again, and you find a new problem.
+            That is the real process.
+          </p>
+
+          <p>
+            It is slow, iterative, and sometimes frustrating, but it is also
+            where the actual understanding comes from. Reading about MARL gives
+            the theory, while training a system exposes the weaknesses,
+            assumptions, and hidden engineering problems behind that theory.
+            You start to understand why non-stationarity matters because you see
+            the formation collapse. You understand credit assignment because you
+            cannot tell which drone caused the failure. You understand reward
+            shaping because the agents exploit your reward in ways you did not
+            expect. You understand Sim2Real concerns because even a successful
+            simulation policy may not be physically meaningful.
+          </p>
+
+          <p>
+            This is why I think MARL training should be discussed more honestly.
+            The final result may look intelligent, but the process is full of
+            instability.
+          </p>
+
+          <h2>What I Have Learned</h2>
+
+          <p>
+            What actually happens during MARL training is not just the
+            optimisation of individual agents. It is the attempt to stabilise a
+            system where multiple learners are changing at the same time. That
+            is the core difficulty.
+          </p>
+
+          <p>
+            The environment moves. The agents adapt. The reward signal becomes
+            ambiguous. Old data becomes stale. Coordination appears, disappears,
+            and sometimes reappears.
+          </p>
+
+          <p>
+            A swarm may look stable for several episodes and then collapse
+            because the collective behaviour shifted. A policy may improve
+            locally while making the group worse. A reward function may produce
+            high scores but poor movement. A simulation may look successful while
+            still being far from deployable.
+            This is the reality behind MARL training. It is not clean. It is not
+            smooth. It is not just algorithm selection.
+          </p>
+
+          <p>
+            It is reward design, curriculum planning, systems debugging,
+            observation design, metric tracking, playback analysis, and constant
+            engineering judgement.
+          </p>
+
+          <p>
+            But that is also what makes it interesting. When coordination finally
+            begins to emerge, it is not just because one agent learned well. It
+            is because the system found a way to stabilise collective behaviour
+            under uncertainty.
+          </p>
+
+          <p>
+            Underneath every successful swarm demonstration is a much less
+            visible story: failed runs, unstable gradients, collapsed formations,
+            redesigned rewards, strange behaviours, and many experiments that
+            did not work.
+          </p>
+
+          <p>
+            That instability is not a side effect of MARL. It is the environment
+            in which collective intelligence is learned.
+          </p>
+        </div>
+
+        <section class="comments" aria-labelledby="comments-title">
+          <h2 id="comments-title">Comments</h2>
+          <div
+            id="cusdis_thread"
+            data-host="https://cusdis.com"
+            data-app-id="d096a6af-ad28-43b9-a1d7-2fc4a277154d"
+            data-page-id="what-actually-happens-during-marl-training"
+            data-page-url="https://ememchijioke.com/posts/what-actually-happens-during-marl-training.html"
+            data-page-title="What Actually Happens During MARL Training?"
+          ></div>
+          <script async defer src="https://cusdis.com/js/cusdis.es.js"></script>
+        </section>
+      </article>
+    </main>
+
+    <script>
+      const button = document.querySelector(".theme-toggle");
+      const savedTheme = localStorage.getItem("theme");
+
+      if (savedTheme === "dark") {
+        document.documentElement.dataset.theme = "dark";
+        button.textContent = "day";
+      }
+
+      button.addEventListener("click", () => {
+        const isDark = document.documentElement.dataset.theme === "dark";
+        document.documentElement.dataset.theme = isDark ? "" : "dark";
+        localStorage.setItem("theme", isDark ? "light" : "dark");
+        button.textContent = isDark ? "night" : "day";
+      });
+    </script>
+  </body>
+</html>
