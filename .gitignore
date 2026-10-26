@@ -2,3 +2,8 @@
 .DS_Store
 .env*
 !.env.example
+.agents/
+.aws/
+node_modules/
+__pycache__/
+*.py[cod]
